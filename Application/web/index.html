@@ -13,6 +13,7 @@ and open the template in the editor.
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/addDwrTest.js"></script>
         <script type="text/javascript" src="dwr/interface/addGsonTest.js"></script>
+        <script type="text/javascript" src="dwr/interface/addMongoTest.js"></script>
         <script>
             function checkDwr(){
                 addDwrTest.func({
@@ -30,6 +31,14 @@ and open the template in the editor.
                     }
                 });
             };
+            function checkMongo(){
+                var dropDb = true;
+                addMongoTest.func(dropDb,{
+                    callback: function(ret){
+                        document.write(ret);
+                    }
+                });
+            };            
         </script>
     </head>
 
@@ -37,5 +46,6 @@ and open the template in the editor.
         <div>TODO write content</div>
         <input type="button" value="check dwr" onclick="checkDwr()">
         <input type="button" value="check gson" onclick="checkGson()">
+        <input type="button" value="check mongo" onclick="checkMongo()">
     </body>
 </html>

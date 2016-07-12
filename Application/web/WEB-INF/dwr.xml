@@ -13,6 +13,9 @@
     <create creator="new" javascript="addGsonTest">
       <param name="class" value="jp.todo.addGsonTest"/>
     </create>
+    <create creator="new" javascript="addMongoTest">
+      <param name="class" value="jp.todo.addMongoTest"/>
+    </create>
     <convert converter="bean" match="jp.todo.*" />
     <!--
     <convert converter="exception" match="java.lang.Exception" />
