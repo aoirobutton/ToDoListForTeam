@@ -12,11 +12,21 @@ and open the template in the editor.
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/addDwrTest.js"></script>
+        <script type="text/javascript" src="dwr/interface/addGsonTest.js"></script>
         <script>
             function checkDwr(){
                 addDwrTest.func({
                     callback: function(ret){
                         document.write(ret);
+                    }
+                });
+            };
+            function checkGson(){
+                var j = {"id":"123"};
+                var jsonData = "{\"id\":\"123\",\"name\":\"koide\",\"strLi\":[\"s1\",\"s2\"],\"intLi\":[1,2,3]}";
+                addGsonTest.func(jsonData,{
+                    callback: function(ret){
+                        document.write(ret.id + " " + ret.name + " " +ret.strLi + " " + ret.intLi);
                     }
                 });
             };
@@ -26,5 +36,6 @@ and open the template in the editor.
     <body>
         <div>TODO write content</div>
         <input type="button" value="check dwr" onclick="checkDwr()">
+        <input type="button" value="check gson" onclick="checkGson()">
     </body>
 </html>
