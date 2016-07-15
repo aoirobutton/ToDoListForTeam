@@ -119,4 +119,8 @@ public class Account {
         this.project = project;
     }
 
+    public void addProject(int projectId){
+        this.project.add(projectId);
+    }
+    
 }
