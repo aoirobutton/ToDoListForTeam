@@ -1,4 +1,4 @@
-package jp.todo;
+package todo;
 public class addDwrTest{
     
     // constructor
