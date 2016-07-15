@@ -16,7 +16,7 @@ public class Account {
     /**
      * ユーザID
      */
-    private String Id;
+    private int id;
     /**
      * セッションID
      */
@@ -49,8 +49,8 @@ public class Account {
      * </ol>
      * @return ユーザID
      */
-    public String getId(){
-        return Id;
+    public int getId(){
+        return id;
     }
 
     /**
@@ -99,10 +99,10 @@ public class Account {
      * <ol>
      * <li>userIdをフィールドへ登録する．</li>
      * </ol>
-     * @param Id ユーザID
+     * @param id ユーザID
      */
-    public void setId(String Id){
-        this.Id = Id;
+    public void setId(int id){
+        this.id = id;
     }
 
     /**
