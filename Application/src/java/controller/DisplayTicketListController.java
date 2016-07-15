@@ -1,4 +1,4 @@
-package todo.controller;
+package controller;
 
 
 import com.google.gson.Gson;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import util.TicketCollectionUtils;
-import todo.controller.Ticket;
+import model.Ticket;
 import util.DBUtils;
 
 /*
