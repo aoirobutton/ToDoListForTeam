@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class DBUtils {
     
-        private static Mongo m;
+    private static Mongo m;
     private static DB db;
     private static final String dbName = "Todo";
 
