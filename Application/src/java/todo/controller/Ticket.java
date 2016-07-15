@@ -10,7 +10,7 @@ package todo.controller;
  * @author matsushita
  */
 public class Ticket {
-    int ID;
+    int id;
     String ticket;
     String user;
     int responsible;
@@ -23,7 +23,7 @@ public class Ticket {
     }
     
     public int getID(){
-        return this.ID;
+        return this.id;
     }
     public String getUser(){
         return this.user;
@@ -42,5 +42,27 @@ public class Ticket {
     }
     public int getProject(){
         return this.project;
+    }
+    
+    public void setID(int id){
+        this.id = id;
+    }
+    public void setUser(String user){
+        this.user = user;
+    }
+    public void setResponsible(int responsible){
+        this.responsible = responsible;
+    }
+    public void setState(String state){
+        this.state = state;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+    public void setDeadline(String deadline){
+        this.deadline = deadline;
+    }
+    public void setProject(int project){
+        this.project = project;
     }
 }
