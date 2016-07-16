@@ -17,6 +17,7 @@ public class Project {
     private int id;
     private String project;
     private List member;
+    private String description;
     
     
     public Project(){
@@ -34,6 +35,10 @@ public class Project {
         return this.member;
     }
     
+    public String getDescription(){
+        return this.description;
+    }
+    
     public void setId(int id){
         this.id = id;
     }
@@ -44,6 +49,10 @@ public class Project {
     
     public void setMember(List member){
         this.member = member;
+    }
+    
+    public void setDescription(String description){
+        this.description = description;
     }
 }
 
