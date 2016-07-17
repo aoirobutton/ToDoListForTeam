@@ -20,7 +20,7 @@ public class DBUtils {
     
     private static Mongo m;
     private static DB db;
-    private static final String dbName = "Todo";
+    private static final String dbName = "ToDo";
 
     private static DBUtils singleton = new DBUtils();
 

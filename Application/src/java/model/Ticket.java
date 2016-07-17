@@ -25,6 +25,9 @@ public class Ticket {
     public int getID(){
         return this.id;
     }
+    public String getTicket(){
+        return this.ticket;
+    }
     public String getUser(){
         return this.user;
     }
@@ -46,6 +49,9 @@ public class Ticket {
     
     public void setID(int id){
         this.id = id;
+    }
+    public void setTicket(String ticket){
+        this.ticket = ticket;
     }
     public void setUser(String user){
         this.user = user;

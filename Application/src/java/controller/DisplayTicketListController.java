@@ -8,8 +8,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 import util.TicketCollectionUtils;
+import util.LoginUserUtils;
 import model.Ticket;
 import util.DBUtils;
 
@@ -24,28 +24,27 @@ import util.DBUtils;
  * @author matsushita
  */
 public class DisplayTicketListController {
-    private DBCollection ticketCollection = TicketCollectionUtils.getCollection();
+    private DBCollection ticketCollection;// = TicketCollectionUtils.getInstance().getCollection();
     private DB db = DBUtils.getInstance().getDb();
     private DBCollection projectCollection = db.getCollection("project");
     //private DBCollection accountColl = TicketCollectionUtils.getCollection();
     private Gson gson = new Gson();
 
     public DisplayTicketListController(){
+        ticketCollection = TicketCollectionUtils.getInstance().getCollection();
     }
     
-    public List<Ticket> getTicKetList(/*String accountJson , String... keys*/){
+    public List<Ticket> getTicketList(String... keys){
         List<Ticket> ticketList = new ArrayList<Ticket>();
-        String[] keys ={"responsible","project"};
+        //String[] keys ={"responsible","project"};
         BasicDBObject query = new BasicDBObject();
-        
         for(String key:keys){
             query.append(key,getSearchValue(key));
         }
-        
         DBCursor cursor = ticketCollection.find(query);
         
         //どのチケットの責任者でもなければ, nullを返す.
-        if(cursor.size() != 1){
+        if(cursor.size() == 0){
             return null;
         }
         while(cursor.hasNext()){
@@ -59,11 +58,10 @@ public class DisplayTicketListController {
     private Object getSearchValue(String key){
         switch(key){
             case "responsible":
-                return Integer.toString(LoginUserUtils.getID()); // LoginUtilUtils作るクラスのgetIDをstaticに
-            case "projrct":
-                // LoginUtilUtils作るクラスのgetIDをstaticに
-                BasicDBObject search = new BasicDBObject("$in", Arrays.toString(LoginUserUtils.getProject())); 
-                return search;
+                return Integer.toString(1);//LoginUserUtils.getUserId()); // LoginUtilUtils作るクラスのgetIDをstaticに
+            case "project":
+                //BasicDBObject search = new BasicDBObject("$in", LoginUserUtils.getProject()); 
+                //return search;
             default:
                 return null;
         }

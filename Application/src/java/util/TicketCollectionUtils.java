@@ -23,7 +23,11 @@ public class TicketCollectionUtils {
         collection = db.getCollection(collectionName);
     }
     
-    public static DBCollection getCollection(){
+    public static TicketCollectionUtils getInstance(){
+        return singleton;
+    }
+    
+    public DBCollection getCollection(){
         return collection;
     }   
 }

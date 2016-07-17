@@ -5,11 +5,11 @@
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
-        <script type="text/javascript" src="dwr/interface/DsiplayTicketController.js"></script>
+        <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
             function displayTicketList(){
-                DsiplayTicketController.getTicketList({
+                DisplayTicketListController.getTicketList({
                     callback: function(ticketList){
                         var list = ""
                         for(var i in ticketList){
@@ -18,11 +18,12 @@
                             list = list + '<td>' + ticket.ticket + '</td>';
                             list = list + '<td>' + ticket.responsible + '</td>'; //id(int) -> user(String)に変える
                             list = list + '<td>' + ticket.deadline + '</td>';
-                            list = list + '<td>' + ticket.projectName + '</td>'; //id -> project
+                            list = list + '<td>' + ticket.project + '</td>'; //id -> project
                             list = list + '<td>' + ticket.state + '</td>';
                             list = list + ' <form action="edit.html"><td align="center"><input type="submit" value="編集"></td></form><form action="delete.html"><td align="center"><input type="submit" value="削除"></td></form>';
                             list = list + '<tr>';
                         }
+                        //document.write(list);
                         $('#ticketList').html(list);                        
                     }
                 });
@@ -36,7 +37,7 @@
             }
         </script>
     </head>
-    <body>
+    <body onload="displayTicketList()">
         <h1>作業一覧</h1>
         <hr>
         <div align="right">
@@ -91,7 +92,7 @@
                 </th>
             </tr>
             </thead>
-            <tbody id="tciketList">
+            <tbody id="ticketList">
             </tbody>
         </table>
         <!--

@@ -118,9 +118,10 @@ public class Account {
     public void setProject(List project){
         this.project = project;
     }
-
+    /*
     public void addProject(int projectId){
         this.project.add(projectId);
     }
+    */
     
 }
