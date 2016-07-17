@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class Account {
     /**
      * プロジェクト
      */
-    private List project;
+    private List<Integer> project = new ArrayList<Integer>();
 
     /**
      * コンストラクタ．
@@ -77,7 +78,7 @@ public class Account {
         return pass;
     }
 
-    public List getProject(){
+    public List<Integer> getProject(){
         return project;
     }
     
@@ -115,7 +116,7 @@ public class Account {
         this.pass = pass;
     }
     
-    public void setProject(List project){
+    public void setProject(List<Integer> project){
         this.project = project;
     }
 

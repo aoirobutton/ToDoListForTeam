@@ -6,6 +6,7 @@
 package model;
 
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class Project {
     
     private int id;
     private String project;
-    private List member;
+    private List<Integer> member = new ArrayList<>();
     private String description;
     
     
@@ -31,7 +32,7 @@ public class Project {
         return this.project;
     }
     
-    public List getMember(){
+    public List<Integer> getMember(){
         return this.member;
     }
     
@@ -47,7 +48,7 @@ public class Project {
         this.project = project;
     }
     
-    public void setMember(List member){
+    public void setMember(List<Integer> member){
         this.member = member;
     }
     
