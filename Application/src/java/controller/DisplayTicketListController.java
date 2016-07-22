@@ -58,7 +58,8 @@ public class DisplayTicketListController {
     private Object getSearchValue(String key){
         switch(key){
             case "responsible":
-                return Integer.toString(1);//LoginUserUtils.getUserId()); // LoginUtilUtils作るクラスのgetIDをstaticに
+                //書き換える必要あり！！！
+                return "loginUserName";//LoginUserUtils.getInstance().getLoginUser().getUser(); // LoginUtilUtils作るクラスのgetIDをstaticに
             case "project":
                 //BasicDBObject search = new BasicDBObject("$in", LoginUserUtils.getProject()); 
                 //return search;
