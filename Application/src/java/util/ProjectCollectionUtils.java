@@ -29,6 +29,6 @@ public class ProjectCollectionUtils {
     
     public DBCollection getCollection(){
         return collection;
-    }   
+    }
    
 }

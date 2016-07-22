@@ -6,22 +6,29 @@
 package util;
 
 import com.google.gson.Gson;
+import com.mongodb.Mongo;
 import model.Account;
+import sun.security.jca.GetInstance;
 
 /**
  *
  * @author matsushita
  */
 public class LoginUserUtils{
-    private static Account singleton = new Account();
+    private static LoginUserUtils singleton = new LoginUserUtils();
+    private static Account loginUser;
     
-    private LoginUserUtils(String form){
-        Gson gson = new Gson();
-        singleton = gson.fromJson(form, Account.class);
+    private LoginUserUtils(){
+        loginUser = new Account();
+        loginUser.setUser("user1");
     }
     
-    public static String getUser(){
-        return singleton.getUser();
+    public static LoginUserUtils getInstance(){
+        return singleton;
+    }
+    
+    public Account getLoginUser(){
+        return singleton.loginUser;
     }
     
 }

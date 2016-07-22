@@ -23,33 +23,32 @@
                 }
                 return json;
             }
-            
-            // userからidへの変換を行う
-            function getMember2Id(userName){
-                return 1;
-            }
-            
+
             function register(){
                 var form = $('#project_register').serializeArray();
                 var js0 = Array2Json(form);
                 if(!Array.isArray(js0["member"]))
                     js0["member"] = [js0["member"]];
-                console.log(js0);
-                var li = [];
-                for(i in js0["member"]){
-                    li.push(getMember2Id(js0["member"][i]));
-                }
-                js0["member"] = li;
-                
-                //console.log(Array2Json(form));
-                console.log(js0);
-                RegisterProjectController.Register(js0, {
-                    callback: function(ret){
-                        document.write(ret);
-                    }
+                RegisterProjectController.existUsers(js0,{
+                    callback:function(ret){
+                        if(ret){
+                            RegisterProjectController.Register(js0, {
+                                callback: function(ret){
+                                    if(ret){
+                                        updateErrorMessage("登録しました.",null)
+                                    }
+                                },
+                                exceptionHandler: updateErrorMessage
+                            });
+                        }
+                    },
+                    exceptionHandler: updateErrorMessage
                 });
             }
-            
+            function updateErrorMessage(message, exception){
+                console.log(message)
+                $('#errorMessage').text(message);
+            }            
             function add()
             {
                 var div_element = document.createElement("tr");
@@ -112,6 +111,7 @@
                 </table>
             </form>
         </div>
+        <font color="red" id="errorMessage"></font>
     </body>
 </html>
 

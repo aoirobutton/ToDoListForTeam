@@ -25,8 +25,8 @@
     </create>
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />
-    <!--
     <convert converter="exception" match="java.lang.Exception" />
+    <!--
     <convert converter="bean" match="java.lang.StackTraceElement"/>
     -->
   </allow>
