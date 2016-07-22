@@ -10,25 +10,21 @@ package model;
  * @author matsushita
  */
 public class Ticket {
-    int id;
     String ticket;
     String user;
-    int responsible;
+    String responsible;
     String state;
     String description;
     String deadline;
-    int project;
+    String project;
     
     public Ticket(){
     }
     
-    public int getID(){
-        return this.id;
-    }
     public String getUser(){
         return this.user;
     }
-    public int getResponsible(){
+    public String getResponsible(){
         return this.responsible;
     }
     public String getState(){
@@ -40,17 +36,14 @@ public class Ticket {
     public String getDeadline(){
         return this.deadline;
     }
-    public int getProject(){
+    public String getProject(){
         return this.project;
     }
     
-    public void setID(int id){
-        this.id = id;
-    }
     public void setUser(String user){
         this.user = user;
     }
-    public void setResponsible(int responsible){
+    public void setResponsible(String responsible){
         this.responsible = responsible;
     }
     public void setState(String state){
@@ -62,7 +55,7 @@ public class Ticket {
     public void setDeadline(String deadline){
         this.deadline = deadline;
     }
-    public void setProject(int project){
+    public void setProject(String project){
         this.project = project;
     }
 }
