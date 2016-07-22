@@ -20,8 +20,8 @@ public class LoginUserUtils{
         singleton = gson.fromJson(form, Account.class);
     }
     
-    public static int getUserId(){
-        return singleton.getId();
+    public static String getUser(){
+        return singleton.getUser();
     }
     
 }

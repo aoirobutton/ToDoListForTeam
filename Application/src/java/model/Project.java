@@ -6,6 +6,7 @@
 package model;
 
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,36 +15,36 @@ import java.util.List;
  */
 public class Project {
     
-    private int id;
     private String project;
-    private List member;
+    private List<String> member = new ArrayList<>();
+    private String description;
     
     
     public Project(){
-    }
-    
-    public int getId(){
-        return this.id;
     }
     
     public String getProject(){
         return this.project;
     }
     
-    public List getMember(){
+    public List<String> getMember(){
         return this.member;
     }
     
-    public void setId(int id){
-        this.id = id;
+    public String getDescription(){
+        return this.description;
     }
     
     public void setProject(String project){
         this.project = project;
     }
     
-    public void setMember(List member){
+    public void setMember(List<String> member){
         this.member = member;
+    }
+    
+    public void setDescription(String description){
+        this.description = description;
     }
 }
 
