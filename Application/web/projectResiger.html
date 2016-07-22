@@ -3,11 +3,57 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>プロジェクト登録</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/RegisterProjectController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
+            function Array2Json(form){
+                var json={};
+                for(i in form){
+                    var temp = form[i];
+                    if(!json.hasOwnProperty(temp.name)){
+                        json[temp.name] = temp.value;
+                    }else{
+                        if(!Array.isArray(json[temp.name])){
+                            json[temp.name] = [json[temp.name]];
+                        }
+                        json[temp.name].push(temp.value);
+                    }
+                }
+                return json;
+            }
+            
+            // userからidへの変換を行う
+            function getMember2Id(userName){
+                return 1;
+            }
+            
+            function register(){
+                var form = $('#project_register').serializeArray();
+                var js0 = Array2Json(form);
+                if(!Array.isArray(js0["member"]))
+                    js0["member"] = [js0["member"]];
+                console.log(js0);
+                var li = [];
+                for(i in js0["member"]){
+                    li.push(getMember2Id(js0["member"][i]));
+                }
+                js0["member"] = li;
+                
+                //console.log(Array2Json(form));
+                console.log(js0);
+                RegisterProjectController.Register(js0, {
+                    callback: function(ret){
+                        document.write(ret);
+                    }
+                });
+            }
+            
             function add()
             {
                 var div_element = document.createElement("tr");
-                div_element.innerHTML = '<th class="add_field">追加メンバー</th><td class="add_field"><input type="text" name="name" value="" size="24"></td>';
+                div_element.innerHTML = '<th class="add_field">追加メンバー</th><td class="add_field"><input type="text" name="member" value="" size="24"></td>';
                 var parent_object = document.getElementById("piyo");
                 parent_object.appendChild(div_element);
             }
@@ -17,14 +63,14 @@
         <h1>プロジェクト登録</h1>
         <hr>
         <div align="center">
-            <table border="0">
-                <form action="list.html">
+            <form action="list.html" id="project_register">
+                <table border="0">
                     <tr>
                         <th class="add_field">
                             プロジェクト名
                         </th>
                         <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
+                            <input type="text" name="project" value="" size="24">
                         </td>
                     </tr>
                     <tr>
@@ -32,7 +78,7 @@
                             メンバー名
                         </th>
                         <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
+                            <input type="text" name="member" value="" size="24">
                         </td>
                     </tr>
                     <tr id="piyo"></tr>
@@ -41,7 +87,7 @@
                             詳細
                         </th>
                         <td class="add_field">
-                            <textarea name="example" cols="50" rows="10"></textarea>
+                            <textarea name="description" cols="50" rows="10"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -49,7 +95,7 @@
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="登録">
+                                        <input type="button" value="登録" onclick="register()">
                                     </td>
                                     </form>
                                     <form action="list.html">
@@ -63,8 +109,8 @@
                             </table>
                         </td>
                     </tr>
-                </form>
-            </table>
+                </table>
+            </form>
         </div>
     </body>
 </html>
