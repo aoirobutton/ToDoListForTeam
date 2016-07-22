@@ -30,8 +30,7 @@ public class RegisterProjectController {
     public boolean Register(Project newProject){
         //Project newProject = gson.fromJson(form, Project.class);
         if(FormCheck(newProject)){
-            BasicDBObject doc = new BasicDBObject("id",newProject.getId())
-                    .append("project",newProject.getProject())
+            BasicDBObject doc = new BasicDBObject("project",newProject.getProject())
                     .append("member", newProject.getMember())
                     .append("description", newProject.getDescription()); // ここうまいこと作れないかなぁ
             projectCollection.insert(doc);
@@ -51,7 +50,7 @@ public class RegisterProjectController {
         }
         
         //要素の重複除去 //要確認
-        List<Integer> newList = new ArrayList<Integer>(new HashSet<>(project.getMember()));        
+        List<String> newList = new ArrayList<String>(new HashSet<>(project.getMember()));        
         project.setMember(newList);
             //代案
             // Java8から追加された Stream を使う方法

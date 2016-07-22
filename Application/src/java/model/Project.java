@@ -15,24 +15,19 @@ import java.util.List;
  */
 public class Project {
     
-    private int id;
     private String project;
-    private List<Integer> member = new ArrayList<>();
+    private List<String> member = new ArrayList<>();
     private String description;
     
     
     public Project(){
     }
     
-    public int getId(){
-        return this.id;
-    }
-    
     public String getProject(){
         return this.project;
     }
     
-    public List<Integer> getMember(){
+    public List<String> getMember(){
         return this.member;
     }
     
@@ -40,15 +35,11 @@ public class Project {
         return this.description;
     }
     
-    public void setId(int id){
-        this.id = id;
-    }
-    
     public void setProject(String project){
         this.project = project;
     }
     
-    public void setMember(List<Integer> member){
+    public void setMember(List<String> member){
         this.member = member;
     }
     
