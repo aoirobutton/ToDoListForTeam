@@ -21,6 +21,10 @@ public class Ticket {
     public Ticket(){
     }
     
+    public String getTicket(){
+        return ticket;
+    }
+    
     public String getUser(){
         return this.user;
     }
@@ -40,6 +44,9 @@ public class Ticket {
         return this.project;
     }
     
+    public void setTicket(String ticket){
+        this.ticket = ticket;
+    }
     public void setUser(String user){
         this.user = user;
     }
