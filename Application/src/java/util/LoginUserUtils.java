@@ -13,15 +13,18 @@ import model.Account;
  * @author matsushita
  */
 public class LoginUserUtils{
-    private static Account singleton = new Account();
+    private static LoginUserUtils singlrton = new LoginUserUtils();
+    private static Account loginUser = new Account();
     
-    private LoginUserUtils(String form){
-        Gson gson = new Gson();
-        singleton = gson.fromJson(form, Account.class);
+    private LoginUserUtils(){
     }
     
-    public static int getUserId(){
-        return singleton.getId();
+    public static Account getLoginUser(){
+        return singlrton.loginUser;
     }
     
+    public static void setLoginUser(Account loginUser){
+        singlrton.loginUser = loginUser;
+    }
+   
 }

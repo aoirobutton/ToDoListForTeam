@@ -3,6 +3,9 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>ログイン</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -12,8 +15,8 @@
         <h1>ログイン</h1>
         <hr>
         <div align="center">
+          <form id="login_form">
             <table border="0">
-                <form action="list.html">
                     <tr>
                         <th class="login_field">
                             ユーザID
@@ -38,11 +41,42 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="login_button">
-                            <input type="submit" value="ログイン" id="login">
+                            <input type="button" value="ログイン" id="login" onclick="Login()">
                         </td>
                     </tr>
                 </form>
             </table>
         </div>
+        <div id="textDiv"></div>
+        <div id="error_msg" class="error"></div>
+        <script type="text/javascript">
+           
+        </script>
+        
+        <script>
+            function Login(){
+                var form = $("#login_form").serializeJson();
+                var div = document.getElementById("textDiv");
+                div.textContent = "WEEEEE";
+                var text = div.textContent;
+                
+          //      document.location.assign('list.html'); これで画面遷移できる
+                console.log(form.userId);
+                console.log(form.pass);
+                LoginController.execute(form, {
+                    callback: function(data){
+                        updateErrorMessage("ログインが完了しました．");
+                    },
+                        exceptionHandler: updateErrorMessage
+                });
+            }
+            
+            function updateErrorMessage(message, exception){
+                $('#error_msg').text(message);
+            }
+        </script>
+        
+        
+        
     </body>
 </html>

@@ -15,10 +15,6 @@ import java.util.List;
 public class Account {
 
     /**
-     * ユーザID
-     */
-    private int id;
-    /**
      * セッションID
      */
     private String sessionId = "";
@@ -42,16 +38,6 @@ public class Account {
      * </ol>
      */
     public Account(){
-    }
-
-    /**
-     * <ol>
-     *   <li>ユーザIDを取得する</li>
-     * </ol>
-     * @return ユーザID
-     */
-    public int getId(){
-        return id;
     }
 
     /**
@@ -94,16 +80,6 @@ public class Account {
 
     public void setUser(String user){
         this.user = user;
-    }
-
-    /**
-     * <ol>
-     * <li>userIdをフィールドへ登録する．</li>
-     * </ol>
-     * @param id ユーザID
-     */
-    public void setId(int id){
-        this.id = id;
     }
 
     /**
