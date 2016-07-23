@@ -40,10 +40,10 @@ public class LoginController extends IdentifyingAccountForm{
     
     private LoginController(){        
     }
-    public void execute(IdentifyingAccountForm form) throws TEMViewException {
+    public boolean execute(IdentifyingAccountForm form) throws TEMViewException{
     //    form.validate();
         Gson gson = new Gson();
-        account = new Account();
+   //     account = new Account();
         // ログインしようとしているユーザの情報を保持
         account = gson.fromJson(form.toString(), Account.class);
   //      account.setUser(form.getUserId());
@@ -58,17 +58,22 @@ public class LoginController extends IdentifyingAccountForm{
         // 検索用クエリーの生成
         BasicDBObject query = new BasicDBObject("user", account.getUser())
                                        .append("pass", account.getPass());
+         // デバッグ用にインサートクエリーの生成
+        BasicDBObject doc = new BasicDBObject("_id", "3")
+                                .append("user", "suzuki")
+                                .append("pass", "ccc");
+        coll.insert(doc);
         // 検索
         DBCursor cursor = coll.find(query);
         if(cursor.size() == 1){
             // 登録されているユーザ名とパスが入力されたとき
             // ログインユーザの情報を格納
             LoginUserUtils.setLoginUser(account);
-           
+            return true;
         }else{
             // 未登録のユーザ名とパスが入力されたとき
             // 何もせずに終了
-          
+            return false;
         }
     }
     
