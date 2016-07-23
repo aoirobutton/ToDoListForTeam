@@ -38,19 +38,17 @@ public class LoginController extends IdentifyingAccountForm{
     
     private  Account account;
     
-    private LoginController(){        
+    public LoginController(){        
     }
-    public void execute(IdentifyingAccountForm form) throws TEMViewException {
+    public void execute(Account form) throws TEMViewException {
     //    form.validate();
-        Gson gson = new Gson();
-        account = new Account();
+        account = form;
         // ログインしようとしているユーザの情報を保持
-        account = gson.fromJson(form.toString(), Account.class);
+        //account = gson.fromJson(form.toString(), Account.class);
   //      account.setUser(form.getUserId());
   //      account.setPass(form.getPass());
   
   //    Session session = new Session();
-        
         // 現在のデータベースを取得
         DB db = DBUtils.getInstance().getDb();
         // collention の指定
@@ -63,12 +61,7 @@ public class LoginController extends IdentifyingAccountForm{
         if(cursor.size() == 1){
             // 登録されているユーザ名とパスが入力されたとき
             // ログインユーザの情報を格納
-            LoginUserUtils.setLoginUser(account);
-           
-        }else{
-            // 未登録のユーザ名とパスが入力されたとき
-            // 何もせずに終了
-          
+            LoginUserUtils.setLoginUser(account);  
         }
     }
     
