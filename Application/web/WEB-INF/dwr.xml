@@ -16,7 +16,12 @@
     <create creator="new" javascript="addMongoTest">
       <param name="class" value="todo.addMongoTest"/>
     </create>
+    <create creator="new" javascript="addaccount">
+      <param name="class" value="controller.addaccount"/>
+    </create>
+    
     <convert converter="bean" match="todo.*" />
+    <convert converter="bean" match="view.*"/>
     <!--
     <convert converter="exception" match="java.lang.Exception" />
     <convert converter="bean" match="java.lang.StackTraceElement"/>
