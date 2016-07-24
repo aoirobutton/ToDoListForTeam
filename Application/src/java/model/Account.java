@@ -50,6 +50,12 @@ public class Account {
         return sessionId;
     }
 
+    /**
+     * <ol>
+     *   <li>ユーザ名を取得する</li>
+     * </ol>
+     * @return ユーザ名
+     */
     public String getUser(){
         return user;
     }
@@ -78,6 +84,12 @@ public class Account {
         this.sessionId = sessionId;
     }
 
+    /**
+     * <ol>
+     * <li>userをフィールドへ登録する．</li>
+     * </ol>
+     * @param user パスワード
+     */
     public void setUser(String user){
         this.user = user;
     }
