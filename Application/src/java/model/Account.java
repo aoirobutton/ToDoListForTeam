@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +14,6 @@ import java.util.List;
  */
 public class Account {
 
-    /**
-     * ユーザID
-     */
-    private int id;
     /**
      * セッションID
      */
@@ -32,7 +29,7 @@ public class Account {
     /**
      * プロジェクト
      */
-    private List project;
+    private List<String> project = new ArrayList<String>();
 
     /**
      * コンストラクタ．
@@ -45,16 +42,6 @@ public class Account {
 
     /**
      * <ol>
-     *   <li>ユーザIDを取得する</li>
-     * </ol>
-     * @return ユーザID
-     */
-    public int getId(){
-        return id;
-    }
-
-    /**
-     * <ol>
      *   <li>セッションIDを取得する</li>
      * </ol>
      * @return セッションID
@@ -63,6 +50,12 @@ public class Account {
         return sessionId;
     }
 
+    /**
+     * <ol>
+     *   <li>ユーザ名を取得する</li>
+     * </ol>
+     * @return ユーザ名
+     */
     public String getUser(){
         return user;
     }
@@ -77,7 +70,7 @@ public class Account {
         return pass;
     }
 
-    public List getProject(){
+    public List<String> getProject(){
         return project;
     }
     
@@ -91,18 +84,14 @@ public class Account {
         this.sessionId = sessionId;
     }
 
-    public void setUser(String user){
-        this.user = user;
-    }
-
     /**
      * <ol>
-     * <li>userIdをフィールドへ登録する．</li>
+     * <li>userをフィールドへ登録する．</li>
      * </ol>
-     * @param id ユーザID
+     * @param user パスワード
      */
-    public void setId(int id){
-        this.id = id;
+    public void setUser(String user){
+        this.user = user;
     }
 
     /**
@@ -115,12 +104,13 @@ public class Account {
         this.pass = pass;
     }
     
-    public void setProject(List project){
+    public void setProject(List<String> project){
         this.project = project;
     }
-
+    /*
     public void addProject(int projectId){
         this.project.add(projectId);
     }
+    */
     
 }
