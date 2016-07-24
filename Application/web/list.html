@@ -9,8 +9,15 @@
         <script type="text/javascript" src="dwr/interface/DeleteTicketController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
-            function displayTicketList(){
-                DisplayTicketListController.getTicketList({
+            function Key_on(input_key){
+                if(input_key == 13){
+                    searchTicket();
+                }
+            }
+            
+            function displayTicketList(searchWord){
+                console.log(searchWord);
+                DisplayTicketListController.getTicketList(searchWord, {
                     callback: function(ticketList){
                         var list = ""
                         for(var i in ticketList){
@@ -21,7 +28,7 @@
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; //id -> project
                             list = list + '<td>' + ticket.state + '</td>';
-                            list = list + ' <form action="edit.html"><td align="center"><input type="submit" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
+                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
                         //document.write(list);
@@ -33,9 +40,18 @@
             function deleteTicket(ticket, responsible, project){
                 location.href="delete.html?ticket="+ticket+"&responsible="+responsible+"&project="+project;
             }
+            
+            function searchTicket(){
+                var sw = $("#searchWord").serializeArray();
+                //console.log(sw[0].value.split(" "));
+                displayTicketList(sw[0].value.split(" "));
+            }
+            function reload(){
+                displayTicketList([""]);
+            }
         </script>
     </head>
-    <body onload="displayTicketList()">
+    <body onload="reload()">
         <h1>作業一覧</h1>
         <hr>
         <div align="right">
@@ -46,7 +62,7 @@
             <tr>
                 <form action="add.html">
                     <td>
-                        <input type="submit" value="作業登録">
+                        <input type="button" value="作業登録">
                     </td>
                 </form>
                 <td align="right">
@@ -55,12 +71,12 @@
                             <td>
                                 検索キーワード
                             </td>
-                            <form action="search.html">
+                            <form id="searchWord">
                                 <td>
-                                    <input type="text" name="keyword" value="" size="24">
+                                    <input type="text" name="search_word" size="24">
                                 </td>
                                 <td>
-                                    <input type="submit" value="検索">
+                                    <input type="button" value="検索" onclick="searchTicket()">
                                 </td>
                             </form>
                         </tr>
@@ -137,12 +153,12 @@
                 </td>
                 <form action="edit.html">
                     <td align="center">
-                        <input type="submit" value="編集">
+                        <input type="button" value="編集">
                     </td>
                 </form>
                 <form action="delete.html">
                     <td align="center">
-                        <input type="submit" value="削除">
+                        <input type="button" value="削除">
                     </td>
                 </form>
             </tr>

@@ -7,6 +7,8 @@ package util;
 
 import com.google.gson.Gson;
 import com.mongodb.Mongo;
+import java.util.ArrayList;
+import java.util.List;
 import model.Account;
 import sun.security.jca.GetInstance;
 
@@ -21,6 +23,9 @@ public class LoginUserUtils{
     private LoginUserUtils(){
         loginUser = new Account();
         loginUser.setUser("user1");
+        List<String> li = new ArrayList<String>();
+        li.add("project3");
+        loginUser.setProject(li);
     }
     
     public static LoginUserUtils getInstance(){
