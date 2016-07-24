@@ -6,6 +6,7 @@
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
+        <script type="text/javascript" src="dwr/interface/DeleteTicketController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
             function displayTicketList(){
@@ -20,7 +21,7 @@
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; //id -> project
                             list = list + '<td>' + ticket.state + '</td>';
-                            list = list + ' <form action="edit.html"><td align="center"><input type="submit" value="編集"></td></form><form action="delete.html"><td align="center"><input type="submit" value="削除"></td></form>';
+                            list = list + ' <form action="edit.html"><td align="center"><input type="submit" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
                         //document.write(list);
@@ -28,12 +29,9 @@
                     }
                 });
             }
-
-            function getUser(userId){
-                
-            }
-            function getProject(projectId){
-                
+            
+            function deleteTicket(ticket, responsible, project){
+                location.href="delete.html?ticket="+ticket+"&responsible="+responsible+"&project="+project;
             }
         </script>
     </head>
