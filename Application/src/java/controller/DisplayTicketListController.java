@@ -60,12 +60,24 @@ public class DisplayTicketListController {
     private BasicDBObject getSearchValue(String key){
         BasicDBObject search;
         switch(key){
+//<<<<<<< HEAD
             case "--responsible":
                 return new BasicDBObject("responsible",LoginUserUtils.getInstance().getLoginUser().getUser()); 
             case "--project":
                 search = new BasicDBObject("$in", LoginUserUtils.getInstance().getLoginUser().getProject()); 
                 return new BasicDBObject("project", search);
             case "":
+/*                
+=======
+            case "responsible":
+                //書き換える必要あり！！！
+                return "loginUserName";//LoginUserUtils.getInstance().getLoginUser().getUser(); // LoginUtilUtils作るクラスのgetIDをstaticに
+            case "project":
+                //BasicDBObject search = new BasicDBObject("$in", LoginUserUtils.getProject()); 
+                //return search;
+            default:
+>>>>>>> master
+        */
                 return null;
             default:
                 List<BasicDBObject> li = new ArrayList<BasicDBObject>();

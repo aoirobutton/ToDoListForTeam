@@ -17,6 +17,8 @@ import sun.security.jca.GetInstance;
  * @author matsushita
  */
 public class LoginUserUtils{
+
+//<<<<<<< HEAD
     private static LoginUserUtils singleton = new LoginUserUtils();
     private static Account loginUser;
     
@@ -34,6 +36,26 @@ public class LoginUserUtils{
     
     public Account getLoginUser(){
         return singleton.loginUser;
+/*        
+=======
+    private static LoginUserUtils singlrton = new LoginUserUtils();
+    private static Account loginUser = new Account();
+    
+    private LoginUserUtils(){
     }
     
+    public static Account getLoginUser(){
+        return singlrton.loginUser;
+
+//    public static String getUser(){
+//        return singleton.getUser();
+
+>>>>>>> master
+*/        
+    }
+    
+    public static void setLoginUser(Account loginUser){
+        singleton.loginUser = loginUser;
+    }
+   
 }

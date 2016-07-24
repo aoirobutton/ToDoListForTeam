@@ -24,9 +24,9 @@
                             ticket = ticketList[i];
                             list = list + '<tr>';
                             list = list + '<td>' + ticket.ticket + '</td>';
-                            list = list + '<td>' + ticket.responsible + '</td>'; //id(int) -> user(String)に変える
+                            list = list + '<td>' + ticket.responsible + '</td>'; 
                             list = list + '<td>' + ticket.deadline + '</td>';
-                            list = list + '<td>' + ticket.project + '</td>'; //id -> project
+                            list = list + '<td>' + ticket.project + '</td>'; 
                             list = list + '<td>' + ticket.state + '</td>';
                             list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
@@ -109,6 +109,7 @@
             <tbody id="ticketList">
             </tbody>
         </table>
+<<<<<<< HEAD
         <!--
         <table border="0" width="90%" class="list">
             <tr>
@@ -164,5 +165,7 @@
             </tr>
         </table>
         -->
+=======
+>>>>>>> master
     </body>
 </html>
