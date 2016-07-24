@@ -4,6 +4,47 @@
       <meta http-equiv="content-type" content="text/html; charset=utf-8">
       <title>削除確認</title>
       <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/DeleteTicketController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script>
+            function getP(){
+                /* アドレスの「?」以降の引数(パラメータ)を取得 */
+                 var pram=location.search;
+                /* 引数がない時は処理しない */
+                if (!pram) return false;
+                /* 先頭の?をカット */
+                pram=pram.substring(1);
+                /* 「&」で引数を分割して配列に */
+                var pair=pram.split("&");
+                var i=temp="";
+                var key=new Array();
+                for (i=0; i < pair.length; i++) {
+                    /* 配列の値を「=」で分割 */
+                    temp=pair[i].split("=");
+                    keyName=temp[0];
+                    keyValue=temp[1];
+                    /* キーと値の連想配列を生成 */
+                    key[keyName]=keyValue;
+                }
+                deleteTicket(key["ticket"], key["responsible"], key["project"]);
+            }
+
+            function deleteTicket(ticket, responsible, project){
+                console.log(ticket);console.log(responsible);console.log(project);
+                DeleteTicketController.deleteTicket(ticket, responsible, project, {
+                    callback: function(ret){
+                        if(ret){
+                            location.href="list.html";
+                        }else{
+                            alert("ERROE");
+                        }
+                        
+                    }
+                });
+            }            
+        </script>
     </head>
     <body>
         <h1>削除確認</h1>
@@ -22,7 +63,7 @@
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="削除">
+                                        <input type="button" value="削除" onclick="getP()">
                                     </td>
                                     </form>
                                     <form action="list.html">

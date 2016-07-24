@@ -24,7 +24,6 @@ public class Ticket {
     public String getTicket(){
         return ticket;
     }
-    
     public String getUser(){
         return this.user;
     }
