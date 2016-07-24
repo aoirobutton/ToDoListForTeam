@@ -19,8 +19,11 @@
     <create creator="new" javascript="LoginController">
       <param name="class" value="controller.LoginController"/>
     </create>
-    <convert converter="bean" match="todo.*" />
+    <create creator="new" javascript="DisplayTicketListController">
+      <param name="class" value="controller.DisplayTicketListController"/>
+    </create>
     <convert converter="bean" match="view.*" />
+    <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />
     <!--
     <convert converter="bean" match="model.*" />

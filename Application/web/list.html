@@ -3,8 +3,41 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>作業一覧</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script>
+            function displayTicketList(){
+                DisplayTicketListController.getTicketList({
+                    callback: function(ticketList){
+                        var list = ""
+                        for(var i in ticketList){
+                            ticket = ticketList[i];
+                            list = list + '<tr>';
+                            list = list + '<td>' + ticket.ticket + '</td>';
+                            list = list + '<td>' + ticket.responsible + '</td>'; 
+                            list = list + '<td>' + ticket.deadline + '</td>';
+                            list = list + '<td>' + ticket.project + '</td>'; 
+                            list = list + '<td>' + ticket.state + '</td>';
+                            list = list + ' <form action="edit.html"><td align="center"><input type="submit" value="編集"></td></form><form action="delete.html"><td align="center"><input type="submit" value="削除"></td></form>';
+                            list = list + '<tr>';
+                        }
+                        //document.write(list);
+                        $('#ticketList').html(list);                        
+                    }
+                });
+            }
+
+            function getUser(userId){
+                
+            }
+            function getProject(projectId){
+                
+            }
+        </script>
     </head>
-    <body>
+    <body onload="displayTicketList()">
         <h1>作業一覧</h1>
         <hr>
         <div align="right">
@@ -38,7 +71,7 @@
             </tr>
         </table>
         <table border="0" width="90%" class="list">
-            <tr>
+            <thead>                
                 <th>
                     項目名
                 </th>
@@ -58,37 +91,9 @@
                 操作
                 </th>
             </tr>
-            <tr>
-                <td>
-                    ログイン実装
-                </td>
-                <td>
-                    中島
-                </td>
-                <td>
-                    YYYY/MM/DD
-                </td>
-                <td>
-                    ToDoリスト作成
-                </td>
-                <td class="To Do state">
-                    <select name="user_id" size="1">
-                                <option value="To Do" selected>ToDo</option>
-                                <option value="Doing">Doing</option>
-                                <option value="Done">Done</option>
-                    </select>
-                </td>
-                <form action="edit.html">
-                    <td align="center">
-                        <input type="submit" value="編集">
-                    </td>
-                </form>
-                <form action="delete.html">
-                    <td align="center">
-                        <input type="submit" value="削除">
-                    </td>
-                </form>
-            </tr>
+            </thead>
+            <tbody id="ticketList">
+            </tbody>
         </table>
     </body>
 </html>

@@ -29,7 +29,7 @@ public class Account {
     /**
      * プロジェクト
      */
-    private List<Integer> project = new ArrayList<Integer>();
+    private List<String> project = new ArrayList<String>();
 
     /**
      * コンストラクタ．
@@ -70,7 +70,7 @@ public class Account {
         return pass;
     }
 
-    public List<Integer> getProject(){
+    public List<String> getProject(){
         return project;
     }
     
@@ -104,12 +104,13 @@ public class Account {
         this.pass = pass;
     }
     
-    public void setProject(List<Integer> project){
+    public void setProject(List<String> project){
         this.project = project;
     }
-
+    /*
     public void addProject(int projectId){
         this.project.add(projectId);
     }
+    */
     
 }

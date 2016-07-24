@@ -19,8 +19,13 @@ public class LoginUserUtils{
     private LoginUserUtils(){
     }
     
+<<<<<<< HEAD
     public static Account getLoginUser(){
         return singlrton.loginUser;
+=======
+    public static String getUser(){
+        return singleton.getUser();
+>>>>>>> master
     }
     
     public static void setLoginUser(Account loginUser){
