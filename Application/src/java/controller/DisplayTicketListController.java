@@ -37,12 +37,16 @@ public class DisplayTicketListController {
     public List<Ticket> getTicketList(List<String> keys){
         List<Ticket> ticketList = new ArrayList<Ticket>();
         //String[] keys ={"responsible","project"};
-        BasicDBObject query = new BasicDBObject();
-        if(keys.size() > 0){
-            for(String key:keys){
-                query = getSearchValue(key);
-            }
+        List<BasicDBObject> li = new ArrayList<BasicDBObject>();
+        li.add(new BasicDBObject("project", new BasicDBObject("$in", LoginUserUtils.getInstance().getLoginUser().getProject())));
+        li.add(new BasicDBObject("responsible",LoginUserUtils.getInstance().getLoginUser().getUser()));
+        BasicDBObject queryDef = new BasicDBObject("$or",li);
+        List<BasicDBObject> queryList = new ArrayList<BasicDBObject>();
+        queryList.add(queryDef);
+        for(String key:keys){
+            queryList.add(getSearchValue(key));
         }
+        BasicDBObject query = new BasicDBObject("$and", queryList);
         DBCursor cursor = ticketCollection.find(query);
         
         //どのチケットの責任者でもなければ, nullを返す.
@@ -60,31 +64,16 @@ public class DisplayTicketListController {
     private BasicDBObject getSearchValue(String key){
         BasicDBObject search;
         switch(key){
-//<<<<<<< HEAD
             case "--responsible":
                 return new BasicDBObject("responsible",LoginUserUtils.getInstance().getLoginUser().getUser()); 
             case "--project":
                 search = new BasicDBObject("$in", LoginUserUtils.getInstance().getLoginUser().getProject()); 
                 return new BasicDBObject("project", search);
-            case "":
-/*                
-=======
-            case "responsible":
-                //書き換える必要あり！！！
-                return "loginUserName";//LoginUserUtils.getInstance().getLoginUser().getUser(); // LoginUtilUtils作るクラスのgetIDをstaticに
-            case "project":
-                //BasicDBObject search = new BasicDBObject("$in", LoginUserUtils.getProject()); 
-                //return search;
-            default:
->>>>>>> master
-        */
-                return null;
             default:
                 List<BasicDBObject> li = new ArrayList<BasicDBObject>();
                 //BasicDBObject li = new BasicDBObject();
                 li.add(new BasicDBObject("ticket",new BasicDBObject("$regex",".*"+key+".*")));
-                //li.add(new BasicDBObject("user", new BasicDBObject("$regex",".*"+key+".*")));
-                li.add(new BasicDBObject("responsible", new BasicDBObject("$regex","*."+key+".*")));
+                li.add(new BasicDBObject("responsible", new BasicDBObject("$regex",".*"+key+".*")));
                 li.add(new BasicDBObject("state", new BasicDBObject("$regex",".*"+key+".*")));
                 //li.add(new BasicDBObject("description", new BasicDBObject("$regex",".*"+key+".*")));
                 li.add(new BasicDBObject("deadline", new BasicDBObject("$regex",".*"+key+".*")));

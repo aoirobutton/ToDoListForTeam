@@ -5,25 +5,13 @@
  */
 package controller;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import view.IdentifyingAccountForm;
-import view.TEMValidationException;
 import view.TEMViewException;
-import view.ValidatedBean;
 import com.google.gson.Gson;
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import java.io.Console;
-import java.net.UnknownHostException;
-import todo.Session;
-import todo.TEMFatalException;
 import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 import model.Account;
@@ -59,6 +47,7 @@ public class LoginController extends IdentifyingAccountForm{
                                        .append("pass", account.getPass());
         // 検索
         DBCursor cursor = coll.find(query);
+        account = gson.fromJson(cursor.next().toString(),Account.class);
         if(cursor.size() == 1){
             // 登録されているユーザ名とパスが入力されたとき
             // ログインユーザの情報を格納
@@ -79,5 +68,9 @@ public class LoginController extends IdentifyingAccountForm{
 
         return ctx.getScriptSession().getId().split("/")[0];
     }
+     
+     public Account getLoginUser(){
+         return LoginUserUtils.getInstance().getLoginUser();
+     }
     
 }
