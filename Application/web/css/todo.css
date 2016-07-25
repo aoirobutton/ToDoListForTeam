@@ -61,3 +61,86 @@ td.add_button {
     text-align: center;
     padding: 8px;
 }
+
+  
+
+
+
+
+
+
+ul#tab {
+	zoom: 1;
+	background: #ffffff;
+	border-bottom: 3px solid #5555aa;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+}
+ul#tab:after { content:"."; display: block; height:0px; clear:both; line-height:0; visibility:hidden; }
+ul#tab li {
+	float: left;
+	text-align: center;
+}
+ul#tab li:last-child {
+	background: none;
+}
+ul#tab li a {
+	display: block;
+	width: 138px;
+	padding: 8px 0;
+	text-decoration: none;
+	color: #222;
+}
+ul#tab li a:hover {
+	background: #aaaaff;
+	color: #fff;
+}
+ul#tab li.active,
+ul#tab li.active a,
+ul#tab li.active a:hover {
+	background: #5555aa;
+	color: #fff;
+}
+#detail {
+	clear: both;
+	overflow: hidden;
+}
+.tabbox {
+	display: none;
+}
+
+
+
+
+
+.button {
+	display: inline-block;
+	width: 100px;
+	height: 27px;
+	text-align: center;
+	text-decoration: none;
+	
+	outline: none;
+        background-color: #aaaaff;
+	color: #fff;
+}
+.button::before,
+.button::after {
+	position: absolute;
+	z-index: -1;
+	display: block;
+	content: '';
+}
+.button,
+.button::before,
+.button::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+.button:hover {
+	background-color: #59b1eb;
+}
