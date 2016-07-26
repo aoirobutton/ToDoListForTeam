@@ -5,12 +5,7 @@
  */
 package util;
 
-import com.google.gson.Gson;
-import com.mongodb.Mongo;
-import java.util.ArrayList;
-import java.util.List;
 import model.Account;
-import sun.security.jca.GetInstance;
 
 /**
  *
@@ -19,22 +14,28 @@ import sun.security.jca.GetInstance;
 public class LoginUserUtils{
 
     private static LoginUserUtils singleton = new LoginUserUtils();
-    private static Account loginUser;
+    private Account loginUser;
     
     private LoginUserUtils(){
         loginUser = new Account();
     }
     
     public static LoginUserUtils getInstance(){
+        singleton.resetLoginUser();
         return singleton;
     }
     
     public Account getLoginUser(){
+        singleton.resetLoginUser();
         return singleton.loginUser;
     }
     
     public static void setLoginUser(Account loginUser){
         singleton.loginUser = loginUser;
+    }
+    
+    private void resetLoginUser(){
+        singleton.loginUser = AccountCollectionUtils.getInstance().getAccount(this.loginUser.getUser());
     }
    
 }

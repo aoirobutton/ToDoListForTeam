@@ -34,6 +34,12 @@
     <create creator="new" javascript="DeleteTicketController">
       <param name="class" value="controller.DeleteTicketController"/>
     </create>
+    <create creator="new" javascript="DisplayProjectController">
+      <param name="class" value="controller.DisplayProjectController"/>
+    </create>
+    <create creator="new" javascript="EditProjectController">
+      <param name="class" value="controller.EditProjectController"/>
+    </create>
     <convert converter="bean" match="view.*" />
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />

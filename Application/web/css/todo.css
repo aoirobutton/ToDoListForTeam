@@ -5,6 +5,19 @@ h1 {
     color: #222288;
 }
 
+h2 {
+    font-size: 26px;
+    margin: 0px;
+    padding: 4px;
+    color: #222288;
+}
+h3 {
+    font-size: 20px;
+    margin: 0px;
+    padding: 4px;
+    color: #222288;
+}
+
 hr {
     margin-top: 8px;
     margin-bottom: 8px;
