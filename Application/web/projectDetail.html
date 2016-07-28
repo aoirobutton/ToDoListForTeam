@@ -102,6 +102,18 @@
                     $('#projectDetailMd').html(marked($("#projectDetail").val()));
                 });
             });
+            
+            function rewriteDetail(){
+                var detail = $("textarea#projectDetail").val();
+                console.log(detail);
+                console.log("ok");
+                EditProjectController.rewriteDetail(projectName, detail,{
+                    callback: function(ret){
+                        console.log(ret);
+                        
+                    }
+                });
+            }
         </script>
     </head>
     <body onload="reload()">
@@ -116,7 +128,7 @@
         </table>
                 <font color="red" id="addMember_error_msg"></font>
         <hr>
-            <h2>Project detail <input type="button" value="更新" onclick=""></h2>
+            <h2>Project detail <input type="button" value="更新" onclick="rewriteDetail()"></h2>
             <table>
                 <col span="1" width="70%">
                 <col span="2" width="20%">
