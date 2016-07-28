@@ -15,6 +15,7 @@ public class LoginUserUtils{
 
     private static LoginUserUtils singleton = new LoginUserUtils();
     private Account loginUser;
+    private boolean state = false;
     
     private LoginUserUtils(){
         loginUser = new Account();
@@ -32,10 +33,22 @@ public class LoginUserUtils{
     
     public static void setLoginUser(Account loginUser){
         singleton.loginUser = loginUser;
+        singleton.state = true;
     }
     
     private void resetLoginUser(){
         singleton.loginUser = AccountCollectionUtils.getInstance().getAccount(this.loginUser.getUser());
+    }
+    
+    //ログイン状態であるかどうか, 未完成.
+    public static boolean exist(){
+        return singleton.state;
+    }
+    
+    //ログインユーザの削除
+    public void delete(){
+        loginUser = new Account();
+        singleton.state = false;
     }
    
 }
