@@ -29,7 +29,7 @@
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; 
                             list = list + '<td>' + ticket.state + '</td>';
-                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
+                            list = list + '<td align="center"><a href="edit.html" target="_top"><input type="button" value="編集"></a></td><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
                         //document.write(list);
