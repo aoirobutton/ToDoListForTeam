@@ -8,6 +8,7 @@
         <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
         <script type="text/javascript" src="dwr/interface/DeleteTicketController.js"></script>
         <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
+        <script type="text/javascript" src="dwr/interface/LogoutController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
             function Key_on(input_key){
@@ -17,7 +18,7 @@
             }
             
             function displayTicketList(searchWord){
-                console.log(searchWord);
+                //console.log(searchWord);
                 DisplayTicketListController.getTicketList(searchWord, {
                     callback: function(ticketList){
                         var list = ""
@@ -55,13 +56,27 @@
                 });
                 displayTicketList([""]);
             }
+            
+            function logout(){
+                console.log("OK");
+                LogoutController.logout({
+                    callback: function(ret){
+                        if(ret){
+                            location.href="index.html"
+                        }else{
+                            // エラーメッセージ
+                        }
+                    }
+                });
+                
+            }
         </script>
     </head>
     <body onload="reload()">
         <h1>作業一覧</h1>
         <hr>
         <div align="right">
-            ようこそ <span id="hello"></span> さん
+            ようこそ <span id="hello"></span> さん <input type="button" id="logout" value="logout" onclick="logout()">
         </div>
         <!-- 作業登録・検索 -->
         <table border="0" width="90%" class="toolbar">

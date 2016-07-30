@@ -40,6 +40,9 @@
     <create creator="new" javascript="EditProjectController">
       <param name="class" value="controller.EditProjectController"/>
     </create>
+    <create creator="new" javascript="LogoutController">
+      <param name="class" value="controller.LogoutController"/>
+    </create>
     <convert converter="bean" match="view.*" />
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />

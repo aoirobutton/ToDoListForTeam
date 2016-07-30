@@ -1,5 +1,5 @@
 function fieldChanged(){
-    var userId = getField("user_id");
+    var userId = getField("user");
     var password = getField("password");
     var disabled = true;
     
