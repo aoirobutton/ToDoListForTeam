@@ -19,7 +19,7 @@
                             list = list + '<td><font color=\'black\' onmouseout="this.color=\'black\'" onmouseover="this.color=\'blue\'"><a target=\'_top\' href=\'projectDetail.html?project='+project.project+'\'>'+project.project+'</a></font></td>';
                             list = list + '<td>' + project.member + '</td>'; 
                             //list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
-                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick=""></td></form>';
+                            list = list + ' <form action="edit.html"><!--<td align="center"><input type="button" value="編集"></td>--></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick=""></td></form>';
                             list = list + '<tr>';
                         }
                         //document.write(list);
@@ -52,7 +52,7 @@
                 <th>
                     メンバー
                 </th>
-                <th colspan="3">
+                <th colspan="1">
                 操作
                 </th>
             </tr>
