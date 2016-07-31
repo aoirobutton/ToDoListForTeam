@@ -47,8 +47,8 @@ public class LoginController extends IdentifyingAccountForm{
                                        .append("pass", account.getPass());
         // 検索
         DBCursor cursor = coll.find(query);
-        account = gson.fromJson(cursor.next().toString(),Account.class);
         if(cursor.size() == 1){
+            account = gson.fromJson(cursor.next().toString(),Account.class);
             // 登録されているユーザ名とパスが入力されたとき
             // ログインユーザの情報を格納
             LoginUserUtils.setLoginUser(account);
