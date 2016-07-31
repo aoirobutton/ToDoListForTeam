@@ -57,6 +57,10 @@
                 var parent_object = document.getElementById("piyo");
                 parent_object.appendChild(div_element);
             }
+            function top_iframe()
+            {
+                top.location.href='all.html';
+            }
         </script>
     </head>
     <body>
@@ -97,9 +101,7 @@
                                     </td>
                                     </form>
                                     <td>
-                                        <a href="all.html" target="_top">
-                                            <input type="submit" value="キャンセル">
-                                        </a>
+                                        <input type="submit" value="キャンセル" onclick="top_iframe()">
                                     </td>
                                     <td>
                                         <input type="button" value="メンバー追加" onclick="add()">
