@@ -51,19 +51,29 @@ public class AddTicketController {
             // 何もせずに終了
             return false;
         }
-        // アカウントのコレクションを取得
-        DBCollection accountCollection = AccountCollectionUtils.getInstance().getCollection();
+        // 現在のログインユーザ名を取って来る
+        String user = LoginUserUtils.getInstance().getLoginUser().getUser();
+        // プロジェクトのコレクションを取得
+        DBCollection projectCollection = ProjectCollectionUtils.getInstance().getCollection();
         // 選択したプロジェクトに担当者が所属してるか確認
-        BasicDBObject doc2 = new BasicDBObject("user",ticket.getResponsible())
-                .append("project", ticket.getProject());
+        // ＆検索するためにクエリーのリストを作る
+        List<BasicDBObject> queryList = new ArrayList<BasicDBObject>();
+        
+        BasicDBObject doc2_1 = new BasicDBObject("project", ticket.getProject())
+                .append("member", user);
+        BasicDBObject doc2_2 = new BasicDBObject("member", ticket.getResponsible());
+        
+        queryList.add(doc2_1);
+        queryList.add(doc2_2);
+        BasicDBObject doc3 = new BasicDBObject("$and", queryList);
+        
         // 所属確認のための検索
-        DBCursor coll2 = accountCollection.find(doc2);
+        DBCursor coll2 = projectCollection.find(doc3);
         if(coll2.size() == 0){
             // 既に同じ名前のチケットがある
             // 何もせずに終了
             return false;
-        }
-        
+        }        
         // ここまで来たら被ってないので登録
         // チケット登録用のクエリーを作成
         BasicDBObject query = new BasicDBObject("ticket",ticket.getTicket())
