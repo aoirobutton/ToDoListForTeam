@@ -6,9 +6,14 @@
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/AddTicketController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 
 <script type="text/javascript">
+        ticket=new Array();
         window.onload = function onLoad() {
+            getP();
+            console.log(ticket["ticket"]);
+
         AddTicketController.getAccountList({
                     callback: function (accountList) {
                 var list = "";
@@ -28,7 +33,8 @@
                 list = list + '</td>';
                 list = list + '</tr>';
                 //document.write(list);
-                $('#userList').html(list);
+                console.log(list);
+                $("#userList").html(list);
                 console.log(accountList);
             }
         });
@@ -43,24 +49,14 @@
                 /* 「&」で引数を分割して配列に */
                 var pair=pram.split("&");
                 var i=temp="";
-                key=new Array();
                 for (i=0; i < pair.length; i++) {
                     /* 配列の値を「=」で分割 */
                     temp=pair[i].split("=");
-                    keyName=temp[0];
-                    keyValue=temp[1];
+                    ticketName=temp[0];
+                    ticketValue=temp[1];
                     /* キーと値の連想配列を生成 */
-                    key[keyName]=keyValue;
+                    ticket[ticketName]=ticketValue;
                 }
-                projectName = key["project"];
-                a = "";
-                a = a + '<th class="add_field">'
-                a = a + '   項目名'
-                a = a + '</th>'
-                a = a + '<div id=" + key["ticket"] + "></div>'
-                $('#thisticket').html(a);
-                $('#thisproject').html = (key["project"]);
-                
         }
     </script>
     </head>
@@ -89,6 +85,7 @@
                         <th class="add_field">
                             担当者
                         </th>
+<!-- comment out>
                         <td class="add_field">
                             <select name="user_id" size="1">
                                 <option value="user1_id" selected>ユーザ1</option>
