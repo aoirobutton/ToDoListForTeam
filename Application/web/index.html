@@ -14,7 +14,6 @@
             function Login(){
                 var form = $("#login_form").serializeJson();
                 var div = document.getElementById("textDiv");
-                div.textContent = "WEEEEE";
                 var text = div.textContent;
                   
                 console.log(form.user);
@@ -22,7 +21,6 @@
                 LoginController.execute(JSON.stringify(form), {
                     callback: function(flg){
                         if(flg) {
-                             updateErrorMessage("ログインが完了しました．");
                              document.location.assign('all.html');
                         } else{
                            updateErrorMessage("登録されていないアカウントです．");
