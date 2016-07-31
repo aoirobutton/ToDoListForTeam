@@ -38,6 +38,7 @@
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; 
                             list = list + '<td>' + ticket.state + '</td>';
+                            list = list + '<td>' + ticket.description + '</td>';
                             list = list + '<td align="center"><a href="edit.html" target="_top"><input type="button" value="編集"></a></td><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
@@ -78,6 +79,9 @@
                 </th>
                 <th>
                     状態
+                </th>
+                <th>
+                    詳細
                 </th>
                 <th colspan="3">
                 操作

@@ -10,6 +10,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
@@ -38,35 +39,43 @@ public class EditTicketController {
         ticketCollection = TicketCollectionUtils.getInstance().getCollection();        
     }
 
-    public boolean editTicket(String ticket, String postresp, String responsible, String state, String description, String deadline, String project){
+    public boolean EditTicket(String ticket, String postresp, String responsible, String state, String description, String deadline, String project){
         DBCollection ticketCollection = TicketCollectionUtils.getInstance().getCollection();
         BasicDBObject query = new BasicDBObject("ticket",ticket)
                 .append("responsible", postresp)
                 .append("project", project);
+        DBObject doc = ticketCollection.findOne(query);
         DBCursor cursor = ticketCollection.find(query);
         if(cursor.size() == 1){
-            ticketCollection.remove(query);
+            doc.put("responsible", responsible);
+            doc.put("state", state);
+            doc.put("description", description);
+            doc.put("deadline", deadline);
+            doc.put("responsible", responsible);
+//            ticketCollection.update(query2);
             return true;
         }
         return false;
     }
 
-    public List<Account> getAccountList(String pro) {
+    public List<String> getAccountList(String pro) {
         // ユーザー一覧を格納するリスト
-        List<Account> accountList = new ArrayList<Account>();
+        List<String> accountList = new ArrayList<String>();
         // 現在ログインしているユーザ名
         String user = LoginUserUtils.getInstance().getLoginUser().getUser();
 
-        // アカウントのコレクションを取って来る
+        // プロジェクトのコレクションを取って来る
         DBCollection accountCollection = AccountCollectionUtils.getInstance().getCollection();
 
         // 自分が所属しているプロジェクトの一覧を取って来る
-        List<Project> projectList = new ArrayList<Project>();
-        projectList = getProjectList();
+        Project project = getProject(pro);
 
         Account ac = new Account();
 
+        accountList = project.getMember();
+        return accountList;
         // 一回でも検索にヒットしたかのフラグ
+/*
         boolean hit = false;
         for (Project p : projectList) {
             if (pro.equals(p.getProject())) {
@@ -89,11 +98,10 @@ public class EditTicketController {
         } else {
             return null;
         }
+*/
     }
 
-    public List<Project> getProjectList(){
-        // プロジェクト一覧を格納するリスト
-        List<Project> projectList = new ArrayList<Project>();
+    public Project getProject(String pro){
         // 現在ログインしているユーザ名
         String user = LoginUserUtils.getInstance().getLoginUser().getUser();
         
@@ -102,7 +110,8 @@ public class EditTicketController {
         
         // ログインユーザが所属しているプロジェクトを検索
         // プロジェクト登録用のクエリーを作成
-        BasicDBObject query = new BasicDBObject("member", user);
+        BasicDBObject query = new BasicDBObject("member", user)
+                .append("project", pro);
         // 検索
         DBCursor cursor = projectCollection.find(query);
         if(cursor.size() >= 1){
@@ -110,9 +119,8 @@ public class EditTicketController {
             Project p = new Project();
             while(cursor.hasNext()){
                 p = gson.fromJson(cursor.next().toString(), Project.class);
-                projectList.add(p);
             }
-            return projectList;
+            return p;
         } else {
             return null;
         }

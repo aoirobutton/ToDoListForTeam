@@ -8,6 +8,8 @@
         <script type="text/javascript" src="dwr/interface/AddTicketController.js"></script>
         <script type="text/javascript" src="dwr/interface/EditTicketController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/jquery.serialize.js"></script>
 
 <script type="text/javascript">
         ticket=new Array();
@@ -17,6 +19,7 @@
 
         EditTicketController.getAccountList(ticket["project"], {
                     callback: function (accountList) {
+                console.log(accountList);
                 var list = "";
                 list = list + '<tr>';
                 list = list + '<th class="add_field">' + "担当者" + '</th>';
@@ -25,9 +28,9 @@
                 for (var i in accountList) {
                     account = accountList[i];
                     if (i == 0) {
-                        list = list + '<option value="' + account.user + '" selected>' + account.user + '</option>';
+                        list = list + '<option value="' + account + '" selected>' + account + '</option>';
                     } else {
-                        list = list + '<option value="' + account.user + '">' + account.user + '</option>';
+                        list = list + '<option value="' + account + '">' + account + '</option>';
                     }
                 }
                 list = list + '</select>';
@@ -38,10 +41,9 @@
                 $("#userList").html(list);
                 $("#ticket").html(ticket["ticket"])
                 $("#project").html(ticket["project"])
-                console.log(accountList);
             }
         });
-    }
+        }
         function getP(){
                 /* アドレスの「?」以降の引数(パラメータ)を取得 */
                  var pram=location.search;
@@ -61,6 +63,38 @@
                     ticket[ticketName]=ticketValue;
                 }
         }
+
+        function EditTicket(){
+            var form = $("#edit_form").serializeJson();
+                console.log(ticket["ticket"].toString());
+                console.log(form.responsible.toString());
+                console.log(form.state.toString());
+                console.log(form.description.toString());
+                console.log(form.deadline.toString());
+                console.log(ticket["project"].toString());
+                console.log(ticket["responsible"].toString());
+            EditTicketController.EditTicket(ticket["ticket"].toString(),
+                                            ticket["responsible"].toString(), 
+                                            form.responsible.toString(),
+                                            form.state.toString(), 
+                                            form.description.toString(), 
+                                            form.deadline.toString(), 
+                                            ticket["project"].toString() , {
+                callback: function(flg){
+                        if(flg) {
+                            editErrorMessage("編集が完了しました．");
+                            top.location.href='all.html';
+                        } else{
+                           editErrorMessage("編集失敗");
+                        }
+                    },
+                        exceptionHandler: editErrorMessage
+                });                
+        }
+        function editErrorMessage(message, exception){
+            $('#error_msg').text(message);
+        }
+
         
     </script>
     </head>
@@ -68,7 +102,7 @@
         <h1>作業更新</h1>
         <hr>
         <div align="center">
-            <div id = "url.ticket"></div>
+            <form id="edit_form">
             <table border="0">
                 <form action="list.html">
                     <tr>
@@ -76,7 +110,6 @@
                             項目名
                         </th>
                         <td class="add_field" id="ticket">
-                            <input type="text" name="name" value="" size="24">                            
                     <tbody id="thisticket"></tbody>
                         <!--td class="add_field">
                             <div id="thisticket">
@@ -103,7 +136,8 @@
                             期限
                         </th>
                         <td class="add_field">
-                            <input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4">
+                            <input type="text" name="deadline" value="" size="8">
+                            <!--input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4"-->
                         </td>
                     </tr>
                     <tr>
@@ -111,7 +145,7 @@
                             プロジェクト名
                         </th>
                         <td class="add_field" id="project">
-                            <input type="text" name="name" value="" size="24">
+                            <input type="text" name="project" value="" size="24">
                         </td>
                     </tr>
                     <tr>
@@ -119,7 +153,7 @@
                             状態
                         </th>
                         <td class="add_field">
-                            <select name="user_id" size="1">
+                            <select name="state" size="1">
                                 <option value="ToDo" selected>ToDo</option>
                                 <option value="Doing">Doing</option>
                                 <option value="Done">Done</option>
@@ -127,11 +161,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <th class="add_field">
+                            詳細
+                        </th>
+                        <td class="add_field" id="description">
+                            <input type="text" name="description" value="" size="24">
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2" class="add_button">
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="更新">
+                                        <input type="submit" value="更新" onclick="EditTicket()">
                                     </td>
                                     </form>
                                     <form action="all.html">
@@ -144,6 +186,7 @@
                     </tr>
                 </form>
             </table>
+            </form>
         </div>
     </body>
 </html>
