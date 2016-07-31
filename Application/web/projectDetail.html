@@ -3,11 +3,142 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>作業一覧 ver.Projet</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
+        <script type="text/javascript" src="dwr/interface/DisplayProjectController.js"></script>
+        <script type="text/javascript" src="dwr/interface/EditProjectController.js"></script>
+        <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>  
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script>
+            var projectName
+            function getP(){
+                /* アドレスの「?」以降の引数(パラメータ)を取得 */
+                 var pram=location.search;
+                /* 引数がない時は処理しない */
+                if (!pram) return false;
+                /* 先頭の?をカット */
+                pram=pram.substring(1);
+                /* 「&」で引数を分割して配列に */
+                var pair=pram.split("&");
+                var i=temp="";
+                var key=new Array();
+                for (i=0; i < pair.length; i++) {
+                    /* 配列の値を「=」で分割 */
+                    temp=pair[i].split("=");
+                    keyName=temp[0];
+                    keyValue=temp[1];
+                    /* キーと値の連想配列を生成 */
+                    key[keyName]=keyValue;
+                }
+                projectName = key["project"];
+                dispProject(key["project"]);
+                displayTicketListPL(["--project:"+key["project"]]);
+                //console.log(marked("# Hello, world!"));
+                //console.log(key["project"]);
+            }
+            function displayTicketListPL(searchWord){
+                console.log(searchWord);
+                DisplayTicketListController.getTicketList(searchWord, {
+                    callback: function(ticketList){
+                        var list = "";
+                        for(var i in ticketList){
+                            ticket = ticketList[i];
+                            list = list + '<tr>';
+                            list = list + '<td>' + ticket.ticket + '</td>';
+                            list = list + '<td>' + ticket.responsible + '</td>'; 
+                            list = list + '<td>' + ticket.deadline + '</td>';
+                            //list = list + '<td>' + ticket.project + '</td>'; 
+                            list = list + '<td>' + ticket.state + '</td>';
+                            //list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
+                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick=""></td></form>';
+                            list = list + '<tr>';
+                        }
+                        //document.write(list);
+                        $('#ticketListPL').html(list);                        
+                    }
+                });
+            }
+
+            function dispProject(projectName){
+                $("#projectName").html(projectName);
+                DisplayProjectController.getProject(projectName,{
+                    callback: function(project){
+                        $("#projectDetail").html(project.description);
+                        $("#projectDetailMd").html(marked(project.description));
+                        $("#projectMember").html("Member: "+project.member+",");
+                    }
+                });
+                
+            }
+            
+            function reload(){
+                getP();
+                /*
+                LoginController.getLoginUser({
+                   callback: function(loginUser){
+                   } 
+                });
+                */
+            }
+            
+            function addMember(){
+                EditProjectController.addMember(projectName, $("#newMember").val(),{
+                    callback:function(){
+                        
+                    },
+                    exceptionHandler:function(message, exeption){
+                        $('#addMember_error_msg').text(message);
+                    }
+                    
+                });
+                console.log($("#newMember").val());
+                console.log(projectName);
+                reload();
+            }
+            $(function() {
+                $("#projectDetail").keyup(function() {
+                    $('#projectDetailMd').html(marked($("#projectDetail").val()));
+                });
+            });
+            
+            function rewriteDetail(){
+                var detail = $("textarea#projectDetail").val();
+                console.log(detail);
+                console.log("ok");
+                EditProjectController.rewriteDetail(projectName, detail,{
+                    callback: function(ret){
+                        console.log(ret);
+                        
+                    }
+                });
+            }
+        </script>
     </head>
-    <body>
-        <h1>〇〇プロジェクト作業一覧</h1>
+    <body onload="reload()">
+        <h1 id="projectName"></h1>
+        <table border="0">
+            <tr>
+                <td><div id="projectMember"></div></td>
+                <td><input id="newMember" type="text" placeholder="add member"></td>
+                <td><input type="button" value="add" onclick="addMember()"></td>
+                <td><div id="noMember"></div></td>
+            </tr>
+        </table>
+                <font color="red" id="addMember_error_msg"></font>
         <hr>
-        〇〇プロジェクトの詳細＋メンバーの表示
+            <h2>Project detail <input type="button" value="更新" onclick="rewriteDetail()"></h2>
+            <table>
+                <col span="1" width="70%">
+                <col span="2" width="20%">
+                <tr>
+                    <td valign="top" bgcolor="#EAF6FD"><div id="projectDetailMd"></div></td>
+                    <td valign="top">
+                        <textarea cols="30" rows="5" id="projectDetail"></textarea>
+                    </td>
+                </tr>
+            </table>
         <hr>
         <!-- 作業登録・検索 -->
         <table border="0" width="90%" class="toolbar">
@@ -17,6 +148,7 @@
                         <input type="submit" value="作業登録">
                     </td>
                 </form>
+            <!--
                 <td align="right">
                     <table border="0">
                         <tr>
@@ -34,8 +166,37 @@
                         </tr>
                     </table>
                 </td>
+            -->
             </tr>
         </table>
+        <table border="0" width="90%" class="list">
+            <thead>                
+                <th>
+                    項目名
+                </th>
+                <th>
+                    担当者
+                </th>
+                <th>
+                    期限
+                </th>
+                <!--
+                <th>
+                    プロジェクト名
+                </th>
+                -->
+                <th>
+                    状態
+                </th>
+                <th colspan="3">
+                操作
+                </th>
+            </tr>
+            </thead>
+            <tbody id="ticketListPL">
+            </tbody>
+        </table>
+        <!--
         <table border="0" width="90%" class="list">
             <tr>
                 <th>
@@ -77,11 +238,11 @@
                                 <option value="Done">Done</option>
                     </select>
                 </td>
-                <form action="edit.html">
+                <a href="edit.html" target="_top">
                     <td align="center">
                         <input type="submit" value="編集">
                     </td>
-                </form>
+                </a>
                 <form action="delete.html">
                     <td align="center">
                         <input type="submit" value="削除">
@@ -89,5 +250,6 @@
                 </form>
             </tr>
         </table>
+        -->
     </body>
 </html>

@@ -86,7 +86,7 @@ public class accountmodel {
         Account account = new Account();
         account.setUser(user);
         account.setPass(pass);
-        List project = new ArrayList();
+        List<String> project = new ArrayList<String>();
         account.setProject(project);
 
         // 重複をチェックする．

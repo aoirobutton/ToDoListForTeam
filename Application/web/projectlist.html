@@ -3,55 +3,63 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>プロジェクト一覧</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/DisplayProjectController.js"></script>
+        <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script>
+            function displayProjectList(){
+                DisplayProjectController.getProjectList({
+                    callback: function(projectList){
+                        var list = ""
+                        for(var i in projectList){
+                            project = projectList[i];
+                            list = list + '<tr>';
+                            list = list + '<td><font color=\'black\' onmouseout="this.color=\'black\'" onmouseover="this.color=\'blue\'"><span onclick=jumpDitail("' + project.project +'")>' + project.project + '</span></font></td>';
+                            list = list + '<td>' + project.member + '</td>'; 
+                            //list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
+                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick=""></td></form>';
+                            list = list + '<tr>';
+                        }
+                        //document.write(list);
+                        $('#projectList').html(list);                        
+                    }
+                });
+            }
+            
+            function reload(){
+                displayProjectList();
+            }
+            
+            function jumpDitail(project){
+                LoginController.getLoginUser({
+                   callback: function(loginUser){
+                        location.href="projectDetail.html?project="+project;
+                        console.log("ok");
+                   } 
+                });
+            }
+        </script>
     </head>
-    <body>
-        <h1>プロジェクト一覧</h1>
-        <hr>
-        <!-- 作業登録・検索 -->
-        <table border="0" width="90%" class="toolbar">
-            <tr>
-                <form action="add.html">
-                    <td>
-                        <input type="submit" value="作業登録">
-                    </td>
-                </form>
-                <td align="right">
-                    <table border="0">
-                        <tr>
-                            <td>
-                                検索キーワード
-                            </td>
-                            <form action="search.html">
-                                <td>
-                                    <input type="text" name="keyword" value="" size="24">
-                                </td>
-                                <td>
-                                    <input type="submit" value="検索">
-                                </td>
-                            </form>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+    <body onload="reload()">
         <table border="0" width="90%" class="list">
+            <thead>                
             <tr>
                 <th>
                     プロジェクト名
                 </th>
                 <th>
-                    リーダー
-                </th>
-                <th>
                     メンバー
-                </th>
-                <th>
-                    期限
                 </th>
                 <th colspan="3">
                 操作
                 </th>
             </tr>
+            </thead>
+            <tbody id="projectList">
+            </tbody>
+            <!--
             <tr>
                 <td>
                     EventSpiral
@@ -65,17 +73,18 @@
                 <td>
                     YYYY/MM/DD
                 </td>
-                <form action="projectResiger.html">
-                    <td align="center">
+                <td align="center">
+                    <a href="projectResiger.html" target="_top">
                         <input type="submit" value="編集">
-                    </td>
-                </form>
+                    </a>
+                </td>
                 <form action="delete.html">
                     <td align="center">
                         <input type="submit" value="削除">
                     </td>
                 </form>
             </tr>
+            -->
         </table>
     </body>
 </html>

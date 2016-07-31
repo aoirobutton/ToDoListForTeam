@@ -17,7 +17,7 @@
             }
             
             function displayTicketList(searchWord){
-                console.log(searchWord);
+                //console.log(searchWord);
                 DisplayTicketListController.getTicketList(searchWord, {
                     callback: function(ticketList){
                         var list = ""
@@ -29,7 +29,7 @@
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; 
                             list = list + '<td>' + ticket.state + '</td>';
-                            list = list + ' <form action="edit.html"><td align="center"><input type="button" value="編集"></td></form><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
+                            list = list + '<td align="center"><a href="edit.html" target="_top"><input type="button" value="編集"></a></td><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
                         //document.write(list);
@@ -48,48 +48,11 @@
                 displayTicketList(sw[0].value.split(" "));
             }
             function reload(){
-                LoginController.getLoginUser({
-                   callback: function(loginUser){
-                       $("#hello").html(loginUser.user);
-                   } 
-                });
                 displayTicketList([""]);
             }
         </script>
     </head>
     <body onload="reload()">
-        <h1>作業一覧</h1>
-        <hr>
-        <div align="right">
-            ようこそ <span id="hello"></span> さん
-        </div>
-        <!-- 作業登録・検索 -->
-        <table border="0" width="90%" class="toolbar">
-            <tr>
-                <form action="add.html">
-                    <td>
-                        <input type="button" value="作業登録">
-                    </td>
-                </form>
-                <td align="right">
-                    <table border="0">
-                        <tr>
-                            <td>
-                                検索キーワード
-                            </td>
-                            <form id="searchWord">
-                                <td>
-                                    <input type="text" name="search_word" size="24">
-                                </td>
-                                <td>
-                                    <input type="button" value="検索" onclick="searchTicket()">
-                                </td>
-                            </form>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
         <table border="0" width="90%" class="list">
             <thead>                
                 <th>
