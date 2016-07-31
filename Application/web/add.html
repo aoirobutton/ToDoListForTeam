@@ -11,8 +11,6 @@
         <script type="text/javascript" src="js/jquery.serialize.js"></script>
     </head>
     <body>
-        <h1>作業登録</h1>
-        <hr>
         <div align="center">
              <form id="add_form">
             <table border="0">
@@ -123,6 +121,7 @@
                     callback: function(flg){
                         if(flg) {
                             updateErrorMessage("登録が完了しました．");
+                            document.location.assign('all.html');
                         } else{
                            updateErrorMessage("登録失敗");
                         }
