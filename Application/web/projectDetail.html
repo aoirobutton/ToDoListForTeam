@@ -86,7 +86,7 @@
             function addMember(){
                 EditProjectController.addMember(projectName, $("#newMember").val(),{
                     callback:function(){
-                        
+                        location.reload(true);                
                     },
                     exceptionHandler:function(message, exeption){
                         $('#addMember_error_msg').text(message);
@@ -95,7 +95,6 @@
                 });
                 console.log($("#newMember").val());
                 console.log(projectName);
-                reload();
             }
             $(function() {
                 $("#projectDetail").keyup(function() {

@@ -101,7 +101,10 @@ public class AddTicketController {
         // 自分が所属しているプロジェクトの一覧を取って来る
         List<Project> projectList = new ArrayList<Project>();
         projectList = getProjectList();
-        
+        if(projectList==null){
+            return null;
+        }
+
         Account ac = new Account();
         
         // 重複防止用のユーザ名リスト
