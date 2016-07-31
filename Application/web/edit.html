@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
         window.onload = function onLoad() {
-            param = GetQueryString();
+        param = GetQueryString();
             target = document.getElementById("param");
             target.innerHTML = param["ticket"];
 
@@ -50,7 +50,7 @@
                 /* 「&」で引数を分割して配列に */
                 var pair=pram.split("&");
                 var i=temp="";
-                var key=new Array();
+                key=new Array();
                 for (i=0; i < pair.length; i++) {
                     /* 配列の値を「=」で分割 */
                     temp=pair[i].split("=");
@@ -60,8 +60,13 @@
                     key[keyName]=keyValue;
                 }
                 projectName = key["project"];
-                document.getElementById('thisticket').value = key["ticket"];
-                document.getElementById('thisproject').value = key["project"];
+                a = "";
+                a = a + '<th class="add_field">'
+                a = a + '   項目名'
+                a = a + '</th>'
+                a = a + '<div id=" + key["ticket"] + "></div>'
+                $('#thisticket').html(a);
+                $('#thisproject').html = (key["project"]);
                 
         }
         }
@@ -99,16 +104,18 @@
                         </th>
                         <td class="add_field">
                             <input type="text" name="name" value="" size="24">
+                    <tbody id="thisticket"></tbody>
+                        <!--td class="add_field">
                             <div id="thisticket">
-                        </td>
+                        </td-->
                     </tr>
-                    <tr>
                         <tbody id="userList">
                         </tbody>
+<!-- comment out>
+                        <tr>
                         <th class="add_field">
                             担当者
                         </th>
-<!-- comment out>
                         <td class="add_field">
                             <select name="user_id" size="1">
                                 <option value="user1_id" selected>ユーザ1</option>

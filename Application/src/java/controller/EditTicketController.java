@@ -38,6 +38,7 @@ public class EditTicketController {
     public boolean editTicket(Ticket ticket, String responsible, String state, String description, String deadline){
         DBCollection ticketCollection = TicketCollectionUtils.getInstance().getCollection();
         BasicDBObject query = new BasicDBObject("ticket",ticket.getTicket())
+                .append("responsible", ticket.getResponsible())
                 .append("project", ticket.getProject());
         DBCursor cursor = ticketCollection.find(query);
         if(cursor.size() == 1){

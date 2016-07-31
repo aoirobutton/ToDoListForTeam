@@ -24,7 +24,8 @@
                         for(var i in ticketList){
                             ticket = ticketList[i];
                             list = list + '<tr>';
-                            list = list + '<td>' + ticket.ticket + '</td>';
+                            list = list + '<td><a href= "edit.html?ticket=' + ticket.ticket + "&responsible=" + ticket.responsible + "&project=" + ticket.project + '">' + ticket.ticket + '</a></td>';
+//                            list = list + '<td>' + ticket.ticket + '</td>';
                             list = list + '<td>' + ticket.responsible + '</td>'; 
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; 
