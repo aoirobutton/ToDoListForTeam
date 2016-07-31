@@ -11,7 +11,6 @@ package model;
  */
 public class Ticket {
     String ticket;
-    String user;
     String responsible;
     String state;
     String description;
@@ -24,9 +23,7 @@ public class Ticket {
     public String getTicket(){
         return ticket;
     }
-    public String getUser(){
-        return this.user;
-    }
+
     public String getResponsible(){
         return this.responsible;
     }
@@ -46,9 +43,7 @@ public class Ticket {
     public void setTicket(String ticket){
         this.ticket = ticket;
     }
-    public void setUser(String user){
-        this.user = user;
-    }
+
     public void setResponsible(String responsible){
         this.responsible = responsible;
     }

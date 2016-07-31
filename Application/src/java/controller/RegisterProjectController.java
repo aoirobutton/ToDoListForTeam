@@ -53,9 +53,9 @@ public class RegisterProjectController {
     
     // projectに登録できる形になっているか確認.
     private boolean FormCheck(Project project) throws Exception{
-        //idの確認, 重複しないようにするにはどうすれば??idいる？
         //projectの名前があるかかくにん.
-        BasicDBObject query = new BasicDBObject("project",project.getProject());
+        BasicDBObject query = new BasicDBObject("project",project.getProject())
+                .append("member", LoginUserUtils.getInstance().getLoginUser().getUser());
         DBCursor cursor = projectCollection.find(query);
         if(cursor.size() > 0){
             throw new Exception();

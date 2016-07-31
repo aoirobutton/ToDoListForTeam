@@ -5,11 +5,13 @@
  */
 package util;
 
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import java.util.List;
+import model.Account;
 
 /**
  *
@@ -19,6 +21,7 @@ public class AccountCollectionUtils {
     private static DB db;
     private static final String collectionName = "account";
     private static DBCollection collection;
+    Gson gson = new Gson();
     
     private static AccountCollectionUtils singleton = new AccountCollectionUtils();
     private AccountCollectionUtils(){
@@ -47,5 +50,21 @@ public class AccountCollectionUtils {
             }
         }
         return true;
+    }
+    
+    public Account getAccount(String userName){
+       DBCursor cursor = collection.find(new BasicDBObject("user",userName));
+       if(cursor.size()==1){
+           return gson.fromJson(cursor.next().toString(), Account.class);
+       }else{
+           //throw new Exception("そのアカウントはないよ.");
+           return null;
+       }
+    }
+    
+    public void addProject(String userName, String projectName){
+        BasicDBObject search = new BasicDBObject("user",userName);
+        BasicDBObject query  = new BasicDBObject("$push",new BasicDBObject("project", projectName));
+        collection.update(search, query);
     }
 }

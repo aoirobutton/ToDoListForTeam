@@ -10,6 +10,32 @@
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <script type="text/javascript" src="js/jquery.serialize.js"></script>
+        <script>
+            function Login(){
+                var form = $("#login_form").serializeJson();
+                var div = document.getElementById("textDiv");
+                div.textContent = "WEEEEE";
+                var text = div.textContent;
+                  
+                console.log(form.user);
+                console.log(form.pass);
+                LoginController.execute(JSON.stringify(form), {
+                    callback: function(flg){
+                        if(flg) {
+                             updateErrorMessage("ログインが完了しました．");
+                             document.location.assign('all.html');
+                        } else{
+                           updateErrorMessage("登録されていないアカウントです．");
+                        }
+                    },
+                        exceptionHandler: updateErrorMessage
+                });
+            }
+            
+            function updateErrorMessage(message, exception){
+                $('#error_msg').text(message);
+            }
+        </script>
     </head>
     <body onload="fieldChanged();">
         <h1>ログイン</h1>
@@ -40,47 +66,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="login_button">
+                        <td class="login_button">
                             <input type="button" value="ログイン" id="login" onclick="Login()">
                         </td>
+                        <td class="login_button">
+                            <input type="button" value="新規登録" id="singup" onclick="location.href='account.html'">
+                        </td>
                     </tr>
-                </form>
             </table>
+          </form>
         </div>
         <div id="textDiv"></div>
-        <div id="error_msg" class="error"></div>
-        <script type="text/javascript">
-           
-        </script>
-        
-        <script>
-            function Login(){
-                var form = $("#login_form").serializeJson();
-                var div = document.getElementById("textDiv");
-                div.textContent = "WEEEEE";
-                var text = div.textContent;
-                  
-                console.log(form.userId);
-                console.log(form.pass);
-                LoginController.execute(JSON.stringify(form), {
-                    callback: function(flg){
-                        if(flg) {
-                             updateErrorMessage("ログインが完了しました．");
-                             document.location.assign('list.html');
-                        } else{
-                           updateErrorMessage("登録されていないアカウントです．");
-                        }
-                    },
-                        exceptionHandler: updateErrorMessage
-                });
-            }
-            
-            function updateErrorMessage(message, exception){
-                $('#error_msg').text(message);
-            }
-        </script>
-        
-        
-        
+        <div id="error_msg" class="error"></div>        
     </body>
 </html>

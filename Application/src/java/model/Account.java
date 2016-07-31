@@ -15,10 +15,6 @@ import java.util.List;
 public class Account {
 
     /**
-     * セッションID
-     */
-    private String sessionId = "";
-    /**
      * ユーザ名
      */    
     private String user;
@@ -38,16 +34,6 @@ public class Account {
      * </ol>
      */
     public Account(){
-    }
-
-    /**
-     * <ol>
-     *   <li>セッションIDを取得する</li>
-     * </ol>
-     * @return セッションID
-     */
-    public String getSessionId(){
-        return sessionId;
     }
 
     /**
@@ -74,16 +60,6 @@ public class Account {
         return project;
     }
     
-        /**
-     * <ol>
-     *   <li>sessionIdをフィールドへ登録する．</li>
-     * </ol>
-     * @param sessionId セッションID
-     */
-    public void setSessionId(String sessionId){
-        this.sessionId = sessionId;
-    }
-
     /**
      * <ol>
      * <li>userをフィールドへ登録する．</li>
@@ -113,4 +89,34 @@ public class Account {
     }
     */
     
+    
+    @Override
+    public boolean equals(Object obj){
+
+        if (obj==null) return false;
+
+        if (! (obj instanceof Account) ) return false;
+        if (this==obj) return true;
+
+        Account other = (Account)obj;
+        if(user != other.user) return false;
+        if(pass == null && other.pass != null || pass != null && other.pass == null) return false;
+        if(project == null && other.project != null || project != null && other.project == null ) return false;
+
+        if(user == other.user && pass.equals(other.pass) && project.equals(project)) return true;
+
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int oddPrime = 31;
+        int result = oddPrime;
+        result += (user == null) ? 0 : user.hashCode();
+        result *= oddPrime;
+  //      result += (pass == null) ? 0 : pass.hashCode();
+  //      result *= oddPrime;
+  //      result += (project == null) ? 0 : project.hashCode();
+        return result;
+    }
 }
