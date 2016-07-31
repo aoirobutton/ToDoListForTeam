@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
         window.onload = function onLoad() {
-        param = GetQueryString();
+            param = GetQueryString();
             target = document.getElementById("param");
             target.innerHTML = param["ticket"];
 
@@ -69,6 +69,8 @@
                 a = a + '<div id=" + key["ticket"] + "></div>'
                 $('#thisticket').html(a);
                 $('#thisproject').html = (key["project"]);
+                document.getElementById('thisticket').value = key["ticket"];
+                document.getElementById('thisproject').value = key["project"];
                 
         }
         }
@@ -118,6 +120,7 @@
                         <th class="add_field">
                             担当者
                         </th>
+<!-- comment out>
                         <td class="add_field">
                             <select name="user_id" size="1">
                                 <option value="user1_id" selected>ユーザ1</option>
