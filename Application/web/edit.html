@@ -6,6 +6,7 @@
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/AddTicketController.js"></script>
+        <script type="text/javascript" src="dwr/interface/EditTicketController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 
 <script type="text/javascript">
@@ -14,7 +15,7 @@
         getP();
         console.log(ticket["ticket"]);
 
-        AddTicketController.getAccountList({
+        EditTicketController.getAccountList(ticket["project"], {
                     callback: function (accountList) {
                 var list = "";
                 list = list + '<tr>';
@@ -60,6 +61,7 @@
                     ticket[ticketName]=ticketValue;
                 }
         }
+        
     </script>
     </head>
     <body>

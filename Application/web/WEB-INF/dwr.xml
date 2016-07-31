@@ -49,6 +49,9 @@
     <create creator="new" javascript="AddTicketController">
       <param name="class" value="controller.AddTicketController"/>
     </create>
+    <create creator="new" javascript="EditTicketController">
+      <param name="class" value="controller.EditTicketController"/>
+    </create>
     <convert converter="bean" match="view.*" />
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />
