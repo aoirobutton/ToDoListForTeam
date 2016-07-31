@@ -51,7 +51,7 @@
                 description = description + '詳細';
                 description = description + '</th>';
                 description = description + '<td class="add_field" id="description">';
-                description = description + '<input type="text" name="description" value="' + ticket["description"] + '" size="24">';
+                description = description + '<input type="text" name="description" value="' + unescape(ticket["description"]) + '" size="24">';
                 description = description + '</td>';
                 description = description + '</tr>';                
                 //document.write(list);
