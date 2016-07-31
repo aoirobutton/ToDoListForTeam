@@ -51,16 +51,13 @@
         <div id="error_msg" class="error"></div>
         <script type="text/javascript">
            
-        </script>
-        
-        <script>
             function Login(){
                 var form = $("#login_form").serializeJson();
                 var div = document.getElementById("textDiv");
                 div.textContent = "WEEEEE";
                 var text = div.textContent;
                   
-                console.log(form.userId);
+                console.log(form.user);
                 console.log(form.pass);
                 LoginController.execute(JSON.stringify(form), {
                     callback: function(flg){

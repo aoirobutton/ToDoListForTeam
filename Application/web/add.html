@@ -3,30 +3,62 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>作業登録</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/AddTicketController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/jquery.serialize.js"></script>
     </head>
     <body>
         <h1>作業登録</h1>
         <hr>
         <div align="center">
+             <form id="add_form">
             <table border="0">
-                <form action="list.html">
+               
                     <tr>
                         <th class="add_field">
                             項目名
                         </th>
                         <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
+                            <input type="text" name="ticket" id="ticket" value="" size="24">
                         </td>
                     </tr>
+                     <!-- comment  ユーザ一覧の検索結果を出すためのtbody -->
+                    <tbody id="userList">
+                    </tbody>
+                     <!-- comment  
                     <tr>
                         <th class="add_field">
                             担当者
                         </th>
                         <td class="add_field">
-                            <select name="user_id" size="1">
-                                <option value="user1_id" selected>ユーザ1</option>
-                                <option value="user2_id">ユーザ2</option>
+                            <select name="responsible" size="1">
+                                <option value="user1" selected>ユーザ1</option>
+                                <option value="user2">ユーザ2</option>
                             </select>
+                        </td>
+                    </tr>
+                     -->
+                    <tr>
+                        <th class="add_field">
+                            状態
+                        </th>
+                        <td class="add_field">
+                            <select name="state" size="1">
+                                <option value="todo" selected>ToDo</option>
+                                <option value="doing">Doing</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="add_field">
+                            内容
+                        </th>
+                        <td class="add_field">
+                            <input type="text" name="description" value="" size="100">
                         </td>
                     </tr>
                     <tr>
@@ -34,28 +66,40 @@
                             期限
                         </th>
                         <td class="add_field">
-                            <input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4">
+                            <input type="text" name="deadline" value="" size="8">
+                            <!-- comment comment <input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4">
+                            -->
                         </td>
                     </tr>
+                    <!-- プロジェクト一覧を出すためのtbody -->
+                 <tbody id="projectList">
+                 </tbody>
+          
+          <!--           
                     <tr>
                         <th class="add_field">
                             プロジェクト名
                         </th>
                         <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
+                            <select name="responsible" size="1">
+                                <option value="user1" selected>ユーザ1</option>
+                                <option value="user2">ユーザ2</option>
+                              
+                            </select>
                         </td>
                     </tr>
+              -->      
                     <tr>
                         <td colspan="2" class="add_button">
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="登録">
+                                        <input type="button" value="登録" onclick="AddTicket()">
                                     </td>
                                     </form>
                                     <form action="list.html">
                                     <td>
-                                        <input type="submit" value="キャンセル">
+                                        <input type="button" value="キャンセル">
                                     </td>
                                 </tr>
                             </table>
@@ -64,5 +108,86 @@
                 </form>
             </table>
         </div>
+        <div id="textDiv"></div>
+        <div id="error_msg" class="error"></div>
+        <script type="text/javascript">
+            function AddTicket(){
+                var form = $("#add_form").serializeJson();
+                var div = document.getElementById("textDiv");
+                div.textContent = "DEBUG_MESSAGE";
+                var text = div.textContent;
+                console.log(form.ticket);
+                console.log(form.project);
+                console.log(form.deadline)
+               AddTicketController.AddTicket(form, {
+                    callback: function(flg){
+                        if(flg) {
+                            updateErrorMessage("登録が完了しました．");
+                        } else{
+                           updateErrorMessage("登録失敗");
+                        }
+                    },
+                        exceptionHandler: updateErrorMessage
+                });
+            }
+            
+            function updateErrorMessage(message, exception){
+                $('#error_msg').text(message);
+            }
+            
+            window.onload = function(){
+                // ページ読み込み時に実行したい処理
+                // 自分が所属しているプロジェクトのユーザ一覧を表示させる
+                AddTicketController.getAccountList({
+                    callback: function(accountList){
+                        var list = "";
+                        list = list + '<tr>';
+                        list = list + '<th class="add_field">' + "担当者" + '</th>';
+                        list = list + '<td class="add_field">';
+                        list = list + '<select name="responsible" size="1">';                  
+                        for(var i in accountList){
+                            account = accountList[i];
+                            if(i == 0) {
+                              list = list + '<option value="' + account.user + '" selected>' + account.user + '</option>';
+                            } else {
+                              list = list + '<option value="' + account.user + '">' + account.user + '</option>';
+                           }
+                        }
+                        list = list + '</select>';
+                        list = list + '</td>';
+                        list = list + '</tr>';
+                        //document.write(list);
+                        $('#userList').html(list);
+                        console.log(accountList);
+                    }
+                });
+                
+                // ユーザが所属しているプロジェクトのリストを表示させる
+                AddTicketController.getProjectList({
+                    callback: function(projectList){
+                        var list = "";
+                        list = list + '<tr>';
+                        list = list + '<th class="add_field">' + "プロジェクト名" + '</th>';
+                        list = list + '<td class="add_field">';
+                        list = list + '<select name="project" size="1">';
+                       
+                        for(var i in projectList){
+                            project = projectList[i];
+                            if(i == 0) {
+                              list = list + '<option value="' + project.project + '" selected>' + project.project + '</option>';
+                            } else {
+                              list = list + '<option value="' + project.project + '">' + project.project + '</option>';
+                            }
+                        }
+                        list = list + '</select>';
+                        list = list + '</td>';
+                        list = list + '</tr>';
+                        //document.write(list);
+                        $('#projectList').html(list);                        
+                        console.log(projectList);
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
