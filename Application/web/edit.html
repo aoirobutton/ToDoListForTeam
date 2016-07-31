@@ -36,9 +36,29 @@
                 list = list + '</select>';
                 list = list + '</td>';
                 list = list + '</tr>';
+                var deadline = ""
+                deadline = deadline + '<tr>';
+                deadline = deadline + '<th class="add_field">';
+                deadline = deadline + '期限';
+                deadline = deadline + '</th>';
+                deadline = deadline + '<td class="add_field">';
+                deadline = deadline + '<input type="text" name="deadline" value="' + ticket["deadline"] + '" size="8">';
+                deadline = deadline + '</td>';
+                deadline = deadline + '</tr>';
+                var description = ""
+                description = description + '<tr>';
+                description = description + '<th class="add_field">';
+                description = description + '詳細';
+                description = description + '</th>';
+                description = description + '<td class="add_field" id="description">';
+                description = description + '<input type="text" name="description" value="' + ticket["description"] + '" size="24">';
+                description = description + '</td>';
+                description = description + '</tr>';                
                 //document.write(list);
                 console.log(list);
                 $("#userList").html(list);
+                $("#deadlinehtml").html(deadline);
+                $("#descriptionhtml").html(description);
                 $("#ticket").html(ticket["ticket"])
                 $("#project").html(ticket["project"])
             }
@@ -131,15 +151,18 @@
                         </td>
                     </tr>
 <comment out -->
-                    <tr>
+                        <tbody id="deadlinehtml">
+                        </tbody>
+
+                    <!--tr>
                         <th class="add_field">
                             期限
                         </th>
                         <td class="add_field">
                             <input type="text" name="deadline" value="" size="8">
-                            <!--input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4"-->
+                            <input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4">
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <th class="add_field">
                             プロジェクト名
@@ -160,25 +183,30 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
+                    <tbody id="descriptionhtml">
+                        </tbody>
+
+                    <!--tr>
                         <th class="add_field">
                             詳細
                         </th>
                         <td class="add_field" id="description">
                             <input type="text" name="description" value="" size="24">
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <td colspan="2" class="add_button">
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="更新" onclick="EditTicket()">
+                                        <input type="button" value="更新" onclick="EditTicket()">
                                     </td>
                                     </form>
                                     <form action="all.html">
                                     <td>
-                                        <input type="submit" value="キャンセル">
+                                        <a href="all.html" target="_top">
+                                        <input type="button" value="キャンセル">
+                                        </a>
                                     </td>
                                 </tr>
                             </table>

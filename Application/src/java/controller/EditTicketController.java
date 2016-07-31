@@ -52,6 +52,7 @@ public class EditTicketController {
             doc.put("description", description);
             doc.put("deadline", deadline);
             doc.put("responsible", responsible);
+            ticketCollection.save(doc);
 //            ticketCollection.update(query2);
             return true;
         }
