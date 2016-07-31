@@ -51,6 +51,18 @@ public class AddTicketController {
             // 何もせずに終了
             return false;
         }
+        // アカウントのコレクションを取得
+        DBCollection accountCollection = AccountCollectionUtils.getInstance().getCollection();
+        // 選択したプロジェクトに担当者が所属してるか確認
+        BasicDBObject doc2 = new BasicDBObject("user",ticket.getResponsible())
+                .append("project", ticket.getProject());
+        // 所属確認のための検索
+        DBCursor coll2 = accountCollection.find(doc2);
+        if(coll2.size() == 0){
+            // 既に同じ名前のチケットがある
+            // 何もせずに終了
+            return false;
+        }
         
         // ここまで来たら被ってないので登録
         // チケット登録用のクエリーを作成
