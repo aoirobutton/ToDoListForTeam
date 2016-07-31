@@ -8,7 +8,6 @@
         <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
         <script type="text/javascript" src="dwr/interface/DeleteTicketController.js"></script>
         <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
-        <script type="text/javascript" src="dwr/interface/LogoutController.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script>
             function Key_on(input_key){
@@ -49,26 +48,7 @@
                 displayTicketList(sw[0].value.split(" "));
             }
             function reload(){
-                LoginController.getLoginUser({
-                   callback: function(loginUser){
-                       $("#hello").html(loginUser.user);
-                   } 
-                });
                 displayTicketList([""]);
-            }
-            
-            function logout(){
-                console.log("OK");
-                LogoutController.logout({
-                    callback: function(ret){
-                        if(ret){
-                            location.href="index.html"
-                        }else{
-                            // エラーメッセージ
-                        }
-                    }
-                });
-                
             }
         </script>
     </head>

@@ -2,10 +2,34 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.tab.js"></script>
+        <script type="text/javascript" src="dwr/interface/LoginController.js"></script>
+        <script type="text/javascript" src="dwr/interface/LogoutController.js"></script>
+        <script>
+            function reload(){
+                LoginController.getLoginUser({
+                   callback: function(loginUser){
+                       $("#hello").html(loginUser.user);
+                   } 
+                });
+            }
+           function logout(){
+                LogoutController.logout({
+                    callback: function(ret){
+                        if(ret){
+                            location.href="index.html";
+                        }else{
+                            // エラーメッセージ
+                        }
+                    }
+                });
+            }
+        </script>
     </head>
-    <body>
+    <body onload="reload()">
         <table border="0" width="100%" class="toolbar">
             <tr>
                 <td align="left">
@@ -28,6 +52,11 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
+            <tr>
+                <div align="right">
+                    ようこそ <span id="hello"></span> さん <input type="button" id="logout" value="logout" onclick="logout()">
+                </div>
             </tr>
         </table>
         <hr>
