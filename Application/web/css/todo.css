@@ -126,34 +126,3 @@ ul#tab li.active a:hover {
 
 
 
-
-.button {
-	display: inline-block;
-	width: 100px;
-	height: 27px;
-	text-align: center;
-	text-decoration: none;
-	
-	outline: none;
-        background-color: #aaaaff;
-	color: #fff;
-}
-.button::before,
-.button::after {
-	position: absolute;
-	z-index: -1;
-	display: block;
-	content: '';
-}
-.button,
-.button::before,
-.button::after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all .3s;
-	transition: all .3s;
-}
-.button:hover {
-	background-color: #59b1eb;
-}
