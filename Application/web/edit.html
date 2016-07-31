@@ -12,6 +12,8 @@
         ticket=new Array();
         window.onload = function onLoad() {
             getP();
+            console.log(ticket["ticket"]);
+
         AddTicketController.getAccountList({
                     callback: function (accountList) {
                 var list = "";
