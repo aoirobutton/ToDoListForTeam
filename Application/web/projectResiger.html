@@ -36,6 +36,7 @@
                                 callback: function(ret){
                                     if(ret){
                                         updateErrorMessage("登録しました.",null)
+                                        top.location.href='all.html';
                                     }
                                 },
                                 exceptionHandler: updateErrorMessage
@@ -59,8 +60,6 @@
         </script>
     </head>
     <body>
-        <h1>プロジェクト登録</h1>
-        <hr>
         <div align="center">
             <form action="list.html" id="project_register">
                 <table border="0">
@@ -97,19 +96,19 @@
                                         <input type="button" value="登録" onclick="register()">
                                     </td>
                                     </form>
-                                    <form action="all.html">
                                     <td>
-                                        <input type="submit" value="キャンセル">
+                                        <a href="all.html" target="_top">
+                                            <input type="submit" value="キャンセル">
+                                        </a>
                                     </td>
                                     <td>
-                                        <input type="button" value="メンバー追加" onclick="add()"></input>
+                                        <input type="button" value="メンバー追加" onclick="add()">
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                 </table>
-            </form>
         </div>
         <font color="red" id="errorMessage"></font>
     </body>

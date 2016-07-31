@@ -11,6 +11,8 @@
         <script type="text/javascript" src="js/jquery.serialize.js"></script>
     </head>
     <body>
+        <h1>作業登録</h1>
+        <hr>
         <div align="center">
              <form id="add_form">
             <table border="0">
@@ -95,9 +97,7 @@
                                         <input type="button" value="登録" onclick="AddTicket()">
                                     </td>
                                     <td>
-                                        <a href="all.html" target="_top">
-                                            <input type="button" value="キャンセル">
-                                        </a>
+                                        <input type="button" value="キャンセル" onclick="history.back()">
                                     </td>
                                 </tr>
                             </table>
@@ -120,7 +120,7 @@
                     callback: function(flg){
                         if(flg) {
                             updateErrorMessage("登録が完了しました．");
-                            top.location.href='all.html';
+                            document.location.assign('all.html');
                         } else{
                            updateErrorMessage("登録失敗");
                         }
