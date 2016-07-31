@@ -3,6 +3,14 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>作業一覧</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <style type="text/css">
+ <!--
+
+     a       {display:block;width:100%;height:100%;}
+     a:hover {background-color:#ffcccc;}
+
+ -->
+ </style>
         <script type="text/javascript" src="dwr/engine.js"></script>
         <script type="text/javascript" src="dwr/util.js"></script>
         <script type="text/javascript" src="dwr/interface/DisplayTicketListController.js"></script>
@@ -24,11 +32,13 @@
                         for(var i in ticketList){
                             ticket = ticketList[i];
                             list = list + '<tr>';
-                            list = list + '<td>' + ticket.ticket + '</td>';
+                            list = list + '<td><a href= "edit.html?ticket=' + ticket.ticket + "&responsible=" + ticket.responsible + "&project=" + ticket.project + "&deadline=" + ticket.deadline + "&state=" + ticket.state + "&description=" + ticket.description + '">' + ticket.ticket + '</a></td>';
+//                            list = list + '<td>' + ticket.ticket + '</td>';
                             list = list + '<td>' + ticket.responsible + '</td>'; 
                             list = list + '<td>' + ticket.deadline + '</td>';
                             list = list + '<td>' + ticket.project + '</td>'; 
                             list = list + '<td>' + ticket.state + '</td>';
+                            list = list + '<td>' + ticket.description + '</td>';
                             list = list + '<td align="center"><a href="edit.html" target="_top"><input type="button" value="編集"></a></td><form action="delete.html"><td align="center"><input type="button" value="削除" onclick="deleteTicket(\''+ticket.ticket+'\',\''+ticket.responsible+'\',\''+ticket.project+'\')"></td></form>';
                             list = list + '<tr>';
                         }
@@ -69,6 +79,9 @@
                 </th>
                 <th>
                     状態
+                </th>
+                <th>
+                    詳細
                 </th>
                 <th colspan="3">
                 操作

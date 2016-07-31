@@ -3,25 +3,146 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>作業更新</title>
         <link rel="STYLESHEET" href="css/todo.css" type="text/css">
+        <script type="text/javascript" src="dwr/engine.js"></script>
+        <script type="text/javascript" src="dwr/util.js"></script>
+        <script type="text/javascript" src="dwr/interface/AddTicketController.js"></script>
+        <script type="text/javascript" src="dwr/interface/EditTicketController.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/jquery.serialize.js"></script>
+
+<script type="text/javascript">
+        ticket=new Array();
+        window.onload = function onLoad() {
+        getP();
+        console.log(ticket["ticket"]);
+
+        EditTicketController.getAccountList(ticket["project"], {
+                    callback: function (accountList) {
+                console.log(accountList);
+                var list = "";
+                list = list + '<tr>';
+                list = list + '<th class="add_field">' + "担当者" + '</th>';
+                list = list + '<td class="add_field">';
+                list = list + '<select name="responsible" size="1">';
+                for (var i in accountList) {
+                    account = accountList[i];
+                    if (i == 0) {
+                        list = list + '<option value="' + account + '" selected>' + account + '</option>';
+                    } else {
+                        list = list + '<option value="' + account + '">' + account + '</option>';
+                    }
+                }
+                list = list + '</select>';
+                list = list + '</td>';
+                list = list + '</tr>';
+                var deadline = ""
+                deadline = deadline + '<tr>';
+                deadline = deadline + '<th class="add_field">';
+                deadline = deadline + '期限';
+                deadline = deadline + '</th>';
+                deadline = deadline + '<td class="add_field">';
+                deadline = deadline + '<input type="text" name="deadline" value="' + ticket["deadline"] + '" size="8">';
+                deadline = deadline + '</td>';
+                deadline = deadline + '</tr>';
+                var description = ""
+                description = description + '<tr>';
+                description = description + '<th class="add_field">';
+                description = description + '詳細';
+                description = description + '</th>';
+                description = description + '<td class="add_field" id="description">';
+                description = description + '<input type="text" name="description" value="' + unescape(ticket["description"]) + '" size="24">';
+                description = description + '</td>';
+                description = description + '</tr>';                
+                //document.write(list);
+                console.log(list);
+                $("#userList").html(list);
+                $("#deadlinehtml").html(deadline);
+                $("#descriptionhtml").html(description);
+                $("#ticket").html(ticket["ticket"])
+                $("#project").html(ticket["project"])
+            }
+        });
+        }
+        function getP(){
+                /* アドレスの「?」以降の引数(パラメータ)を取得 */
+                 var pram=location.search;
+                /* 引数がない時は処理しない */
+                if (!pram) return false;
+                /* 先頭の?をカット */
+                pram=pram.substring(1);
+                /* 「&」で引数を分割して配列に */
+                var pair=pram.split("&");
+                var i=temp="";
+                for (i=0; i < pair.length; i++) {
+                    /* 配列の値を「=」で分割 */
+                    temp=pair[i].split("=");
+                    ticketName=temp[0];
+                    ticketValue=temp[1];
+                    /* キーと値の連想配列を生成 */
+                    ticket[ticketName]=ticketValue;
+                }
+        }
+
+        function EditTicket(){
+            var form = $("#edit_form").serializeJson();
+                console.log(ticket["ticket"].toString());
+                console.log(form.responsible.toString());
+                console.log(form.state.toString());
+                console.log(form.description.toString());
+                console.log(form.deadline.toString());
+                console.log(ticket["project"].toString());
+                console.log(ticket["responsible"].toString());
+            EditTicketController.EditTicket(ticket["ticket"].toString(),
+                                            ticket["responsible"].toString(), 
+                                            form.responsible.toString(),
+                                            form.state.toString(), 
+                                            form.description.toString(), 
+                                            form.deadline.toString(), 
+                                            ticket["project"].toString() , {
+                callback: function(flg){
+                        if(flg) {
+                            editErrorMessage("編集が完了しました．");
+                            top.location.href='all.html';
+                        } else{
+                           editErrorMessage("編集失敗");
+                        }
+                    },
+                        exceptionHandler: editErrorMessage
+                });                
+        }
+        function editErrorMessage(message, exception){
+            $('#error_msg').text(message);
+        }
+
+        
+    </script>
     </head>
     <body>
         <h1>作業更新</h1>
         <hr>
         <div align="center">
+            <form id="edit_form">
             <table border="0">
                 <form action="list.html">
                     <tr>
                         <th class="add_field">
                             項目名
                         </th>
-                        <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
-                        </td>
+                        <td class="add_field" id="ticket">
+                    <tbody id="thisticket"></tbody>
+                        <!--td class="add_field">
+                            <div id="thisticket">
+                        </td-->
                     </tr>
-                    <tr>
+                        <tbody id="userList">
+                        </tbody>
+<!-- comment out>
+                        <tr>
                         <th class="add_field">
                             担当者
                         </th>
+<!-- comment out>
                         <td class="add_field">
                             <select name="user_id" size="1">
                                 <option value="user1_id" selected>ユーザ1</option>
@@ -29,20 +150,25 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
+<comment out -->
+                        <tbody id="deadlinehtml">
+                        </tbody>
+
+                    <!--tr>
                         <th class="add_field">
                             期限
                         </th>
                         <td class="add_field">
+                            <input type="text" name="deadline" value="" size="8">
                             <input type="text" name="year" value="" size="8">/<input type="text" name="month" value="" size="4">/<input type="text" name="day" value="" size="4">
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <th class="add_field">
                             プロジェクト名
                         </th>
-                        <td class="add_field">
-                            <input type="text" name="name" value="" size="24">
+                        <td class="add_field" id="project">
+                            <input type="text" name="project" value="" size="24">
                         </td>
                     </tr>
                     <tr>
@@ -50,24 +176,37 @@
                             状態
                         </th>
                         <td class="add_field">
-                            <select name="user_id" size="1">
-                                <option value="To Do" selected>ToDo</option>
+                            <select name="state" size="1">
+                                <option value="ToDo" selected>ToDo</option>
                                 <option value="Doing">Doing</option>
                                 <option value="Done">Done</option>
                             </select>
                         </td>
                     </tr>
+                    <tbody id="descriptionhtml">
+                        </tbody>
+
+                    <!--tr>
+                        <th class="add_field">
+                            詳細
+                        </th>
+                        <td class="add_field" id="description">
+                            <input type="text" name="description" value="" size="24">
+                        </td>
+                    </tr-->
                     <tr>
                         <td colspan="2" class="add_button">
                             <table border="0">
                                 <tr>
                                     <td>
-                                        <input type="submit" value="更新">
+                                        <input type="button" value="更新" onclick="EditTicket()">
                                     </td>
                                     </form>
                                     <form action="all.html">
                                     <td>
-                                        <input type="submit" value="キャンセル">
+                                        <a href="all.html" target="_top">
+                                        <input type="button" value="キャンセル">
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
@@ -75,6 +214,7 @@
                     </tr>
                 </form>
             </table>
+            </form>
         </div>
     </body>
 </html>

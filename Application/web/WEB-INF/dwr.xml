@@ -19,6 +19,9 @@
     <create creator="new" javascript="addaccount">
       <param name="class" value="controller.addaccount"/>
     </create>
+    <create creator="new" javascript="LoginController">
+      <param name="class" value="controller.LoginController"/>
+    </create>
     
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="view.*"/>
@@ -46,11 +49,14 @@
     <create creator="new" javascript="AddTicketController">
       <param name="class" value="controller.AddTicketController"/>
     </create>
+    <create creator="new" javascript="EditTicketController">
+      <param name="class" value="controller.EditTicketController"/>
+    </create>
     <convert converter="bean" match="view.*" />
     <convert converter="bean" match="todo.*" />
     <convert converter="bean" match="model.*" />
     <convert converter="exception" match="java.lang.Exception" />
-    <!--
+
     <convert converter="bean" match="java.lang.StackTraceElement"/>
     -->
   </allow>
