@@ -36,7 +36,7 @@
                 list = list + '</select>';
                 list = list + '</td>';
                 list = list + '</tr>';
-                var deadline = ""
+                var deadline = "";
                 deadline = deadline + '<tr>';
                 deadline = deadline + '<th class="add_field">';
                 deadline = deadline + '期限';
@@ -45,7 +45,7 @@
                 deadline = deadline + '<input type="text" name="deadline" value="' + ticket["deadline"] + '" size="8">';
                 deadline = deadline + '</td>';
                 deadline = deadline + '</tr>';
-                var description = ""
+                var description = "";
                 description = description + '<tr>';
                 description = description + '<th class="add_field">';
                 description = description + '詳細';
@@ -54,11 +54,32 @@
                 description = description + '<input type="text" name="description" value="' + unescape(ticket["description"]) + '" size="24">';
                 description = description + '</td>';
                 description = description + '</tr>';                
+                var state = "";
+                state = state + '<tr>';
+                state = state + '<th class="add_field">';
+                state = state + '状態';
+                state = state + '</th>';
+                state = state + '<td class="add_field">';
+                state = state + '<select name="state" size="1">';
+                state = state + '<option value="ToDo"';
+                if(ticket["state"]=="ToDo"){state = state + 'selected';}
+                state = state + '>ToDo</option>';
+                state = state + '<option value="Doing"';
+                if(ticket["state"]=="Doing"){ state = state + 'selected';}
+                state = state + '>Doing</option>';
+                state = state + '<option value="Done"';
+                if(ticket["state"]=="Done"){state = state + 'selected';}
+                state = state + '>Done</option>';
+                state = state + '</select>';
+                state = state + '</td>';
+                state = state + '</tr>';
+
                 //document.write(list);
                 console.log(list);
                 $("#userList").html(list);
                 $("#deadlinehtml").html(deadline);
                 $("#descriptionhtml").html(description);
+                $("#statehtml").html(state);
                 $("#ticket").html(ticket["ticket"])
                 $("#project").html(ticket["project"])
             }
@@ -171,7 +192,11 @@
                             <input type="text" name="project" value="" size="24">
                         </td>
                     </tr>
-                    <tr>
+
+                    <tbody id="statehtml">
+                        </tbody>
+                    
+                    <!--tr>
                         <th class="add_field">
                             状態
                         </th>
@@ -182,7 +207,7 @@
                                 <option value="Done">Done</option>
                             </select>
                         </td>
-                    </tr>
+                    </tr-->
                     <tbody id="descriptionhtml">
                         </tbody>
 
